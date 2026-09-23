@@ -110,6 +110,10 @@ public class TiposPlanillaController extends Controller implements Initializable
     private MFXTextField txfMonto;
     @FXML
     private MFXComboBox<?> cbxDeducciones;
+    @FXML
+    private MFXButton btnAgregarMovimiento;
+    @FXML
+    private TableView<?> tbvPlanillas;
 
     /**
      * Initializes the controller class.
@@ -402,6 +406,10 @@ public class TiposPlanillaController extends Controller implements Initializable
             Logger.getLogger(EmpleadosController.class.getName()).log(Level.SEVERE, "Error guardando el tipo de planilla.", ex);
             new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar Tipo Planilla", getStage(), "Ocurrio un error guardando el tipo de planilla.");
         }
+    }
+
+    @FXML
+    private void onActionBtnAgregarMovimiento(ActionEvent event) {
     }
 
     private class ButtonCell extends TableCell<EmpleadoDto, Boolean> {
