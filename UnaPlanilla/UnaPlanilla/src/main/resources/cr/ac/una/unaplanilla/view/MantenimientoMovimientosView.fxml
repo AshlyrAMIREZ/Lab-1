@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane id="AnchorPane" fx:id="root" minHeight="480.0" minWidth="450.0" prefHeight="500.0" prefWidth="700.0" styleClass="jfx-panelfondo" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.unaplanilla.controller.MantenimentoMovimientosViewController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
@@ -100,11 +99,6 @@
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="641.0" spacing="20.0" VBox.vgrow="NEVER">
                      <children>
                         <MFXButton fx:id="btnNuevo" onAction="#onActionBtnNuevo" prefHeight="40.0" prefWidth="130.0" styleClass="jfx-btn-nuevo" text="Nuevo">
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic>
-                        </MFXButton>
-                        <MFXButton fx:id="btnBuscar" onAction="#onActionBtnBuscar" prefHeight="40.0" prefWidth="130.0" styleClass="jfx-btn-buscar" text="Buscar">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
