@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXRadioButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane id="AnchorPane" fx:id="root" minHeight="480.0" minWidth="450.0" prefHeight="500.0" prefWidth="700.0" styleClass="jfx-panelfondo" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.unaplanilla.controller.MantenimentoMovimientosViewController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label prefHeight="45.0" prefWidth="430.0" styleClass="jfx-titulo-label" text="Mantenimiento de Movimientos" />
+                  <AnchorPane>
+                     <children>
+                        <VBox layoutX="20.0" layoutY="14.0" prefHeight="342.0" prefWidth="255.0" spacing="20.0" style="-fx-padding: 25 40 0 40;" styleClass="jfx-contenedor-principal" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="9.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                 <children>
+                                    <MFXTextField fx:id="txtId" floatingText="Id" minWidth="60.0" onKeyPressed="#onKeyPressTxtId" prefHeight="22.0" prefWidth="150.0" styleClass="jfx-txt-id" />
+                                    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <MFXCheckbox fx:id="chkActivo" selected="true" text="Activo" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                 <children>
+                                    <Label text="Gravable">
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
+                                    <Label text="Tipo Monto" />
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="110.0" />
+                                    <Label text="Imprenta">
+                                       <HBox.margin>
+                                          <Insets right="15.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                 <children>
+                                    <MFXRadioButton fx:id="rdbSiGravable" selected="true" text="Sí">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tggGravable" />
+                                       </toggleGroup>
+                                    </MFXRadioButton>
+                                    <MFXRadioButton fx:id="rdbNoGravable" text="No" toggleGroup="$tggGravable" />
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="42.0" HBox.hgrow="ALWAYS" />
+                                    <MFXRadioButton fx:id="rdbAbsoluto" selected="true" text="Absoluto">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tggTipoMonto" />
+                                       </toggleGroup>
+                                    </MFXRadioButton>
+                                    <MFXRadioButton fx:id="rdbPorcentual" text="Porcentual" toggleGroup="$tggTipoMonto" />
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="22.0" />
+                                    <MFXRadioButton fx:id="rdbSiImprenta" selected="true" text="Sí">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tggImprenta" />
+                                       </toggleGroup>
+                                    </MFXRadioButton>
+                                    <MFXRadioButton fx:id="rdbNoImprenta" text="No" toggleGroup="$tggImprenta" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                 <children>
+                                    <MFXComboBox fx:id="cbxDeducciones" floatingText="Deducciones Porcentuales" prefWidth="277.0" />
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="265.0" />
+                                    <MFXTextField fx:id="txtMonto" floatingText="Monto" prefWidth="393.0" />
+                                 </children>
+                              </HBox>
+                              <MFXTextField fx:id="txtDescripcion" floatingText="Descripcion" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="382.0" VBox.vgrow="NEVER" />
+                           </children>
+                           <padding>
+                              <Insets left="40.0" right="40.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </AnchorPane>
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="641.0" spacing="20.0" VBox.vgrow="NEVER">
+                     <children>
+                        <MFXButton fx:id="btnNuevo" onAction="#onActionBtnNuevo" prefHeight="40.0" prefWidth="130.0" styleClass="jfx-btn-nuevo" text="Nuevo">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                        </MFXButton>
+                        <MFXButton fx:id="btnBuscar" onAction="#onActionBtnBuscar" prefHeight="40.0" prefWidth="130.0" styleClass="jfx-btn-buscar" text="Buscar">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                        </MFXButton>
+                        <MFXButton fx:id="btnEliminar" onAction="#onActionBtnEliminar" prefHeight="40.0" prefWidth="130.0" styleClass="jfx-btn-eliminar" text="Eliminar">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                        </MFXButton>
+                        <MFXButton fx:id="btnGuardar" onAction="#onActionBtnGuardar" prefHeight="40.0" prefWidth="130.0" styleClass="jfx-btn-guardar" text="Guardar">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                        </MFXButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" right="20.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

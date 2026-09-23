@@ -13,6 +13,7 @@ import io.github.palexdev.materialfx.controls.MFXCheckbox;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
+import io.github.palexdev.materialfx.controls.MFXRadioButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.net.URL;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -94,6 +96,20 @@ public class TiposPlanillaController extends Controller implements Initializable
     private EmpleadoDto empleadoDto;
     private ObjectProperty<EmpleadoDto> empleadoProperty = new SimpleObjectProperty<>();
     private List<Node> requeridos = new ArrayList<>();
+    @FXML
+    private Tab tbpMovimientoPlanillas;
+    @FXML
+    private MFXTextField txfId;
+    @FXML
+    private MFXRadioButton rdbAbsoluto;
+    @FXML
+    private ToggleGroup tggTipoMonto;
+    @FXML
+    private MFXRadioButton rdbPorcentual;
+    @FXML
+    private MFXTextField txfMonto;
+    @FXML
+    private MFXComboBox<?> cbxDeducciones;
 
     /**
      * Initializes the controller class.
