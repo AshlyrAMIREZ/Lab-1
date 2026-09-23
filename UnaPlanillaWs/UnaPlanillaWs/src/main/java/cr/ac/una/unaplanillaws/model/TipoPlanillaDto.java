@@ -5,6 +5,9 @@
  */
 package cr.ac.una.unaplanillaws.model;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,8 +17,12 @@ import java.util.Objects;
  * @author cbcar
  */
 public class TipoPlanillaDto {
+
+    @Min(value = 1, message = "El id debe ser mayor a 0")
     private Long id;
+    @NotBlank(message = "El codigo de la planilla no puede estar vacio")
     private String codigo;
+    @NotBlank(message = "la descripcion de la planilla no puede estar vacia")
     private String descripcion;
     private Integer planillaPorMes;
     private Integer anoUltimaPlanilla;
@@ -116,7 +123,7 @@ public class TipoPlanillaDto {
     public void setVersion(Long version) {
         this.version = version;
     }
-    
+
     public Boolean getModificado() {
         return modificado;
     }

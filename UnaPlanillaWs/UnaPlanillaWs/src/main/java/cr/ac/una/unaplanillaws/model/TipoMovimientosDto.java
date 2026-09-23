@@ -4,19 +4,35 @@
  */
 package cr.ac.una.unaplanillaws.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 /**
  *
  * @author Oscar
  */
 class TipoMovimientosDto {
+
     private Long id;
+    @NotBlank(message = "El tipo de movimiento no puede estar vacio")
     private String tipo;
+    @NotBlank(message = "La descripcion del movimiento no puede estar vacia")
+    @Size(min = 1, max = 40, message = "La descripcion tiene que tener minimo un valor y maximo 40")
     private String descripcion;
+    @NotNull(message = "el gravable no puede ser nulo")
     private Boolean gravable;
+    @NotNull(message = "el impuesto de renta no puede ser nulo")
     private Boolean impRenta;
+    @NotBlank(message = "El tipo de monto no puede estar blanco")
+    @Size(min = 1, max = 1, message = "El tipo de monto solo puede ser de un valor")
     private String tipoMonto;
+    @NotNull(message = "El monto del movimiento no puede estar vacio")
     private Long monto;
+    @NotBlank(message = "El tipo de aplicacion porcentual no puede estar blanco")
+    @Size(min = 1, max = 1, message = "El tipo de aplicacion porcentual solo puede ser de un valor")
     private String tipoAplDedPorc;
+    
     private Boolean estado;
     private Long version;
 
@@ -115,7 +131,5 @@ class TipoMovimientosDto {
     public void setVersion(Long version) {
         this.version = version;
     }
-    
-    
-    
+
 }

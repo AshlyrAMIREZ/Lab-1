@@ -17,11 +17,8 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 /**
  *
@@ -43,7 +40,7 @@ public class TipomovimientoPlanilla implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PLAM_TIPOMOVIMIENTOSPLANILLA_TMOVPLA_ID_GENERATOR")
     @Basic(optional = false)
     @Column(name = "TPM_ID")
-    private BigDecimal id;
+    private Long id;
     @Basic(optional = false)
     @Column(name = "TPM_TIPOMONTO")
     private String tipoMonto;
@@ -68,23 +65,23 @@ public class TipomovimientoPlanilla implements Serializable {
     public TipomovimientoPlanilla() {
     }
 
-    public TipomovimientoPlanilla(BigDecimal tpmId) {
-        this.id = tpmId;
+    public TipomovimientoPlanilla(TipoMovimientoPlanillaDto dto) {
+        this.id = dto.getId();
+        update(dto);
     }
 
-    public TipomovimientoPlanilla(BigDecimal tpmId, String tpmTipomonto, Long tpmMonto, String tpmTipoapldedporc, Long tpmVersion) {
-        this.id = tpmId;
-        this.tipoMonto = tpmTipomonto;
-        this.monto = tpmMonto;
-        this.tipoAplDedPorc = tpmTipoapldedporc;
-        this.version = tpmVersion;
+    public void update(TipoMovimientoPlanillaDto dto) {
+        this.tipoMonto = dto.getTipoMonto();
+        this.monto = dto.getMonto();
+        this.tipoAplDedPorc = dto.getTipoAplDedPorc();
+        this.version = dto.getVersion();
     }
 
-    public BigDecimal getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
