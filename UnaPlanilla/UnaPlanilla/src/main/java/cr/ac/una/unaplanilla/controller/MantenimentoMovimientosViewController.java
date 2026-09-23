@@ -23,7 +23,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Ashel_Rn
  */
-public class MantenimentoMovimientosViewController implements Initializable {
+public class MantenimentoMovimientosViewController extends Controller implements Initializable {
 
     @FXML
     private AnchorPane root;
@@ -64,14 +64,6 @@ public class MantenimentoMovimientosViewController implements Initializable {
     @FXML
     private MFXButton btnGuardar;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-
     @FXML
     private void onKeyPressTxtId(KeyEvent event) {
     }
@@ -90,6 +82,19 @@ public class MantenimentoMovimientosViewController implements Initializable {
 
     @FXML
     private void onActionBtnGuardar(ActionEvent event) {
+    }
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }    
+
+    @Override
+    public void initialize() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }
