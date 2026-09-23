@@ -35,6 +35,8 @@ public class PrincipalController extends Controller implements Initializable {
     private MFXButton btnCerrarSesion;
     @FXML
     private MFXButton btnSalir;
+    @FXML
+    private MFXButton btnMovimientos;
 
     /**
      * Initializes the controller class.
@@ -61,6 +63,11 @@ public class PrincipalController extends Controller implements Initializable {
     @FXML
     private void onActionBtnTiposPlanilla(ActionEvent event) {
         FlowController.getInstance().goView("TiposPlanillaView");
+    }
+
+    @FXML
+    private void onActionBtnMovientos(ActionEvent event) {
+        FlowController.getInstance().goView("MantenimientoMovimientosView");
     }
 
     @FXML
