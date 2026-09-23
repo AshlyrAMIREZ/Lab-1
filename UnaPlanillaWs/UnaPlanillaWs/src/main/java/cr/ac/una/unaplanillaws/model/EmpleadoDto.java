@@ -1,0 +1,264 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package cr.ac.una.unaplanillaws.model;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Email;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+/**
+ *
+ * @author Carlos
+ */
+public class EmpleadoDto {
+
+    @Min(value = 1, message = "El ID debe ser mayor a 0")
+    private Long id;
+
+    @NotBlank(message = "El nombre del empleado no puede estar vacio")
+    @Size(min = 1, max = 30, message = "El nombre del empleado debe tener una longitud entre 1 y 30 caracteres")
+    private String nombre;
+
+    @NotBlank(message = "El primer apellido del empleado no puede estar vacio")
+    @Size(min = 1, max = 30, message = "El primer apellido del empleado debe tener una longitud entre 1 y 30 caracteres")
+    private String primerApellido;
+
+    @Size(max = 15, message = "El segundo apellido del empleado debe tener una longitud menor a 15 caracteres")
+    private String segundoApellido;
+
+    @NotBlank(message = "La cédula del empleado no puede estar vacia")
+    @Size(min = 9, max = 12, message = "La cédula debe tener entre 9 y 12 caracteres")
+    @Pattern(regexp = "^[0-9]{1,2}-[0-9]{4}-[0-9]{4}$", message = "La cédula no cumple con el formato (ej: 1-1234-5678)")
+    private String cedula;
+
+    @NotBlank(message = "El género del empleado no puede estar vacio")
+    @Pattern(regexp = "^[MF]$", message = "El género debe ser M o F")
+    private String genero;
+
+    @NotBlank(message = "El correo del empleado no puede estar vacio")
+    @Email(message = "El correo no cumple con el formato")
+    @Size(max = 100, message = "El correo no puede exceder 100 caracteres")
+    private String correo;
+
+    @NotNull(message = "El campo administrador no puede ser nulo")
+    private Boolean administrador;
+
+    
+    @Size(min = 3, max = 20, message = "El usuario debe tener entre 3 y 20 caracteres")
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "El usuario solo puede contener letras, números y guiones bajos")
+    private String usuario;
+
+    @Size(min = 6, max = 50, message = "La clave debe tener entre 6 y 50 caracteres")
+    private String clave;
+
+    @NotNull(message = "La fecha de ingreso del empleado no debe ser nula")
+    private LocalDate fechaIngreso;
+
+    private LocalDate fechaSalida;
+
+    @NotNull(message = "El estado activo no puede ser nulo")
+    private Boolean activo;
+
+    @Min(value = 0, message = "La versión debe ser mayor o igual a 0")
+    private Long version;
+
+    @NotNull(message = "El campo modificado no puede ser nulo")
+    private Boolean modificado;
+
+    @NotNull(message = "La fecha no puede ser nula")
+    private LocalDateTime fecha;
+
+    public EmpleadoDto() {
+        this.modificado = false;
+        this.fecha = LocalDateTime.now();
+    }
+
+    public EmpleadoDto(Empleado empleado) {
+        this();
+        this.id = empleado.getId();
+        this.nombre = empleado.getNombre();
+        this.primerApellido = empleado.getPrimerApellido();
+        this.segundoApellido = empleado.getSegundoApellido();
+        this.cedula = empleado.getCedula();
+        this.genero = empleado.getGenero();
+        this.correo = empleado.getCorreo();
+        this.administrador = empleado.getAdministrador().equals("S");
+        this.usuario = empleado.getUsuario();
+        this.clave = empleado.getClave();
+        this.fechaIngreso = empleado.getFechaIngreso();
+        if (empleado.getFechaSalida() != null) {
+            this.fechaSalida = empleado.getFechaSalida();
+        } else {
+            this.fechaSalida = null;
+        }
+        this.activo = empleado.getEstado().equals("A");
+        this.version = empleado.getVersion();
+        this.fecha = LocalDateTime.now();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getPrimerApellido() {
+        return primerApellido;
+    }
+
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
+    }
+
+    public String getSegundoApellido() {
+        return segundoApellido;
+    }
+
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public Boolean getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Boolean administrador) {
+        this.administrador = administrador;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public LocalDate getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(LocalDate fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public LocalDate getFechaSalida() {
+        return fechaSalida;
+    }
+
+    public void setFechaSalida(LocalDate fechaSalida) {
+        this.fechaSalida = fechaSalida;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
+
+    public Boolean getModificado() {
+        return modificado;
+    }
+
+    public void setModificado(Boolean modificado) {
+        this.modificado = modificado;
+    }
+
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    // TODO
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EmpleadoDto other = (EmpleadoDto) obj;
+        return Objects.equals(this.id, other.id);
+    }
+
+    @Override
+    public String toString() {
+        return "EmpleadoDto{" + "id=" + id + ", nombre=" + nombre + ", primerApellido=" + primerApellido + ", segundoApellido=" + segundoApellido + ", cedula=" + cedula + '}';
+    }
+
+}
