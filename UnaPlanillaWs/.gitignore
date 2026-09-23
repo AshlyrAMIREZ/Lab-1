@@ -1,0 +1,48 @@
+# Ignore Maven target directory
+/target/
+target/
+
+# Ignore NetBeans project files
+/.nb-gradle/
+/build/
+/nbproject/private/
+/nbbuild/
+/dist/
+/private/
+
+# Ignore IntelliJ IDEA project files
+/.idea/
+.idea/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore Maven wrapper (if you're using it)
+/.mvn/
+/mvnw
+/mvnw.cmd
+
+# Ignore JavaFX runtime directory (if applicable)
+run/
+
+# Ignore log files
+*.log
+
+# Ignore Eclipse project files (in case you use Eclipse too)
+/.classpath
+/.project
+/.settings/
+
+# Ignore dependency directories and files
+/.m2/
+
+# Java build and class files
+*.class
+*.jar
+*.war
+*.ear
+*.class
+/Project_RelojWS/target/
+
+drop_all.sql
