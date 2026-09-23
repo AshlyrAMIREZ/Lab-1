@@ -19,6 +19,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
@@ -72,6 +73,9 @@ public class TipoPlanilla implements Serializable {
         @JoinColumn(name = "EXP_IDEMP", referencedColumnName = "EMP_ID")})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Empleado> empleados;
+    
+    @OneToMany(mappedBy = "TipoPlanillaId", fetch = FetchType.LAZY)
+    private List<TipomovimientoPlanilla> plamTipomovimientosplanillaList;
 
     public TipoPlanilla() {
     }
@@ -195,6 +199,14 @@ public class TipoPlanilla implements Serializable {
     @Override
     public String toString() {
         return "cr.ac.una.unaplanilla.model.TipoPlanilla[ Id=" + id + " ]";
+    }
+
+    public List<TipomovimientoPlanilla> getPlamTipmovplanillaList() {
+        return plamTipomovimientosplanillaList;
+    }
+
+    public void setPlamTipmovplanillaList(List<TipomovimientoPlanilla> plamTipmovplanillaList) {
+        this.plamTipomovimientosplanillaList = plamTipmovplanillaList;
     }
 
 }
