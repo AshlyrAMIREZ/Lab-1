@@ -10,22 +10,6 @@ Database: Oracle 11g Release 2
 
 -- Create sequences section -------------------------------------------------
 
-CREATE SEQUENCE plam_tipoplanillas_seq01
- INCREMENT BY 1
- START WITH 1
- NOMAXVALUE
- MINVALUE 0
- NOCACHE
-;
-
-CREATE SEQUENCE plam_empleados_seq01
- INCREMENT BY 1
- START WITH 1
- NOMAXVALUE
- MINVALUE 0
- NOCACHE
-;
-
 CREATE SEQUENCE plam_tipmovplanilla_seq01
  INCREMENT BY 1
  START WITH 1
@@ -128,7 +112,9 @@ COMMENT ON COLUMN plam_tipomovimientos.tmov_version IS 'Version del registro'
 CREATE OR REPLACE TRIGGER plam_tipmovplanilla_tgr01 BEFORE INSERT
 ON plam_tipmovplanilla FOR EACH ROW
 BEGIN
-  :new.tpm_id := plam_tipmovplanilla_seq01.nextval;
+  IF :new.tpm_id IS NULL OR :new.tpm_id <= 0 THEN
+     :new.tpm_id := plam_tipmovplanilla_seq01.nextval;
+  END IF;
 END;
 /
 CREATE OR REPLACE TRIGGER plam_tipmovplanilla_tgr02 AFTER UPDATE OF tpm_id
@@ -139,13 +125,15 @@ END;
 /
 
 -- Trigger for sequence plam_tipomovimientos_seq01 for column tmov_id in table plam_tipomovimientos ---------
-CREATE OR REPLACE TRIGGER plam_tipomovimientos_tgr01 BEFORE INSERT
+CREATE OR REPLACE TRIGGER plam_tipomovimientos_plam_01 BEFORE INSERT
 ON plam_tipomovimientos FOR EACH ROW
 BEGIN
-  :new.tmov_id := plam_tipomovimientos_seq01.nextval;
+  IF :new.tmov_id IS NULL OR :new.tmov_id <= 0 THEN
+     :new.tmov_id := plam_tipomovimientos_seq01.nextval
+  END IF;
 END;
 /
-CREATE OR REPLACE TRIGGER plam_tipomovimientos_tgr02 AFTER UPDATE OF tmov_id
+CREATE OR REPLACE TRIGGER plam_tipomovimientos_plam_02 AFTER UPDATE OF tmov_id
 ON plam_tipomovimientos FOR EACH ROW
 BEGIN
   RAISE_APPLICATION_ERROR(-20010,'Cannot update column tmov_id in table plam_tipomovimientos as it uses sequence.');
@@ -154,16 +142,6 @@ END;
 
 
 -- Create foreign keys (relationships) section ------------------------------------------------- 
-
-ALTER TABLE plam_empleadosplanilla ADD CONSTRAINT plam_empleadosplanilla_fk01 FOREIGN KEY (exp_idtpla) REFERENCES plam_tipoplanillas (tpla_id)
-;
-
-
-
-ALTER TABLE plam_empleadosplanilla ADD CONSTRAINT plam_empleadosplanilla_fk02 FOREIGN KEY (exp_idemp) REFERENCES plam_empleados (emp_id)
-;
-
-
 
 ALTER TABLE plam_tipmovplanilla ADD CONSTRAINT plam_tipmovplanilla_fk02 FOREIGN KEY (tpla_id) REFERENCES plam_tipoplanillas (tpla_id)
 ;
