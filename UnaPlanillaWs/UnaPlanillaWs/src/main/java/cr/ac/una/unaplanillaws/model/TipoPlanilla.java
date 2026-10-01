@@ -91,7 +91,6 @@ public class TipoPlanilla implements Serializable {
         this.planillaPorMes = tipoPlanillaDto.getPlanillaPorMes();
         this.anoUltimaPlanilla = tipoPlanillaDto.getAnoUltimaPlanilla();
         this.mesUltimaPlanilla = tipoPlanillaDto.getMesUltimaPlanilla();
-        this.numeroUltimaPlanilla = tipoPlanillaDto.getNumeroUltimaPlanilla();
         this.estado = tipoPlanillaDto.getActivo() ? "A" : "I";
         this.version = tipoPlanillaDto.getVersion();
     }

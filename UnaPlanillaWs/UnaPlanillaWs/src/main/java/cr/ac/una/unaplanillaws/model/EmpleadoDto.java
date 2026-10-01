@@ -21,7 +21,6 @@ import java.util.Objects;
  */
 public class EmpleadoDto {
 
-    @Min(value = 1, message = "El ID debe ser mayor a 0")
     private Long id;
 
     @NotBlank(message = "El nombre del empleado no puede estar vacio")
@@ -37,24 +36,22 @@ public class EmpleadoDto {
 
     @NotBlank(message = "La cédula del empleado no puede estar vacia")
     @Size(min = 9, max = 12, message = "La cédula debe tener entre 9 y 12 caracteres")
-    @Pattern(regexp = "^[0-9]{1,2}-[0-9]{4}-[0-9]{4}$", message = "La cédula no cumple con el formato (ej: 1-1234-5678)")
+
     private String cedula;
 
     @NotBlank(message = "El género del empleado no puede estar vacio")
-    @Pattern(regexp = "^[MF]$", message = "El género debe ser M o F")
     private String genero;
 
     @NotBlank(message = "El correo del empleado no puede estar vacio")
     @Email(message = "El correo no cumple con el formato")
     @Size(max = 100, message = "El correo no puede exceder 100 caracteres")
+    @Pattern(regexp = "^[\\w.-]+@[\\w.+\\.[a-zA-Z]{2,}$", message = "El correo no cumple con el formato designado")
     private String correo;
 
     @NotNull(message = "El campo administrador no puede ser nulo")
     private Boolean administrador;
 
-    
     @Size(min = 3, max = 20, message = "El usuario debe tener entre 3 y 20 caracteres")
-    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "El usuario solo puede contener letras, números y guiones bajos")
     private String usuario;
 
     @Size(min = 6, max = 50, message = "La clave debe tener entre 6 y 50 caracteres")
@@ -65,16 +62,13 @@ public class EmpleadoDto {
 
     private LocalDate fechaSalida;
 
-    @NotNull(message = "El estado activo no puede ser nulo")
+    @NotNull(message = "El estado no puede ser nulo")
     private Boolean activo;
 
-    @Min(value = 0, message = "La versión debe ser mayor o igual a 0")
     private Long version;
 
-    @NotNull(message = "El campo modificado no puede ser nulo")
     private Boolean modificado;
 
-    @NotNull(message = "La fecha no puede ser nula")
     private LocalDateTime fecha;
 
     public EmpleadoDto() {

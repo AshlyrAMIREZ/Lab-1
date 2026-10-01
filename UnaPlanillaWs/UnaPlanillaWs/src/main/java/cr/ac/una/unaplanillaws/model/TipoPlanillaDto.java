@@ -8,6 +8,7 @@ package cr.ac.una.unaplanillaws.model;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,16 +19,17 @@ import java.util.Objects;
  */
 public class TipoPlanillaDto {
 
-    @Min(value = 1, message = "El id debe ser mayor a 0")
     private Long id;
     @NotBlank(message = "El codigo de la planilla no puede estar vacio")
     private String codigo;
-    @NotBlank(message = "la descripcion de la planilla no puede estar vacia")
+    @NotBlank(message = "La descripcion de la planilla no puede estar vacia")
     private String descripcion;
+    @Min(value = 1, message = "La cantidad de planillas por mes debe ser minimo 1")
     private Integer planillaPorMes;
+    @Size(min = 1960, max = 2100, message = "El año de la ultima planilla debe contener año valido")
     private Integer anoUltimaPlanilla;
+    @Size(min = 1, max = 12, message = "El mes de la planilla debe estar en el rango de 1 a 12")
     private Integer mesUltimaPlanilla;
-    private Integer numeroUltimaPlanilla;
     private Boolean activo;
     private Long version;
     private Boolean modificado;
@@ -47,7 +49,6 @@ public class TipoPlanillaDto {
         this.planillaPorMes = tipoPlanilla.getPlanillaPorMes();
         this.anoUltimaPlanilla = tipoPlanilla.getAnoUltimaPlanilla();
         this.mesUltimaPlanilla = tipoPlanilla.getMesUltimaPlanilla();
-        this.numeroUltimaPlanilla = tipoPlanilla.getNumeroUltimaPlanilla();
         this.activo = tipoPlanilla.getEstado().equals("A");
         this.version = tipoPlanilla.getVersion();
     }
@@ -98,14 +99,6 @@ public class TipoPlanillaDto {
 
     public void setMesUltimaPlanilla(Integer mesUltimaPlanilla) {
         this.mesUltimaPlanilla = mesUltimaPlanilla;
-    }
-
-    public Integer getNumeroUltimaPlanilla() {
-        return numeroUltimaPlanilla;
-    }
-
-    public void setNumeroUltimaPlanilla(Integer numeroUltimaPlanilla) {
-        this.numeroUltimaPlanilla = numeroUltimaPlanilla;
     }
 
     public Boolean getActivo() {
