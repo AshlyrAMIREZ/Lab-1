@@ -78,7 +78,7 @@ public class TipoPlanillaController {
         }
     }
     @DELETE
-    @Path("/planilla/{id}")
+    @Path("/planilla/delete/{id}")
         public Response eliminarEmpleado(@PathParam("id") Long id) {
         try {
             Respuesta respuesta = service.eliminarTipoPlanilla(id);
