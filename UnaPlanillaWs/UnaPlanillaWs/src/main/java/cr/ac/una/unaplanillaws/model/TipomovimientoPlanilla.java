@@ -18,8 +18,6 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.math.BigDecimal;
-
 /**
  *
  * @author Oscar

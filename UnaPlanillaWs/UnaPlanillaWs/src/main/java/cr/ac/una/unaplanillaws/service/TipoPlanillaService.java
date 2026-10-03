@@ -7,6 +7,9 @@ package cr.ac.una.unaplanillaws.service;
 
 import cr.ac.una.unaplanillaws.model.Empleado;
 import cr.ac.una.unaplanillaws.model.EmpleadoDto;
+import cr.ac.una.unaplanillaws.model.TipomovimientoPlanilla;
+import cr.ac.una.unaplanillaws.model.TipoMovimientoPlanillaDto;
+import cr.ac.una.unaplanillaws.model.TipoMovimientos;
 import cr.ac.una.unaplanillaws.model.TipoPlanilla;
 import cr.ac.una.unaplanillaws.model.TipoPlanillaDto;
 import cr.ac.una.unaplanillaws.util.CodigoRespuesta;
@@ -28,12 +31,13 @@ import java.util.List;
  *
  * @author Carlos
  */
-// TODO
+@Stateless
+@LocalBean
 public class TipoPlanillaService {
 
     private static final Logger LOG = Logger.getLogger(TipoPlanillaService.class.getName());
 
-    // TODO
+    @PersistenceContext(unitName = "UnaPlanillaWsPU")
     private EntityManager em;
 
     public Respuesta getTipoPlanilla(Long id) {
@@ -45,6 +49,11 @@ public class TipoPlanillaService {
             TipoPlanillaDto tipoPlanillaDto = new TipoPlanillaDto(tipoPlanilla);
             for (Empleado emp : tipoPlanilla.getEmpleados()) {
                 tipoPlanillaDto.getEmpleados().add(new EmpleadoDto(emp));
+            }
+            if (tipoPlanilla.getPlamTipmovplanillaList() != null) {
+                for (TipomovimientoPlanilla tmp : tipoPlanilla.getPlamTipmovplanillaList()) {
+                    tipoPlanillaDto.getTipoMovimientosPlanilla().add(new TipoMovimientoPlanillaDto(tmp));
+                }
             }
             return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "TipoPlanilla", tipoPlanillaDto);
 
@@ -103,17 +112,64 @@ public class TipoPlanillaService {
                 }
                 if (!tipoPlanillaDto.getEmpleados().isEmpty()) {
                     for (EmpleadoDto emp : tipoPlanillaDto.getEmpleados()) {
-                        if (emp.getModificado()) {
+                        if (emp.getModificado() != null && emp.getModificado()) {
                             Empleado empleado = em.find(Empleado.class, emp.getId());
                             empleado.getTiposPlanilla().add(tipoPlanilla);
                             tipoPlanilla.getEmpleados().add(empleado);
                         }
                     }
                 }
+                if (tipoPlanillaDto.getTipoMovimientosPlanillaEliminados() != null) {
+                    for (TipoMovimientoPlanillaDto tmpDto : tipoPlanillaDto.getTipoMovimientosPlanillaEliminados()) {
+                        if (tmpDto.getId() != null && tmpDto.getId() > 0) {
+                            TipomovimientoPlanilla tmp = em.find(TipomovimientoPlanilla.class, tmpDto.getId());
+                            if (tmp != null) {
+                                tipoPlanilla.getPlamTipmovplanillaList().remove(tmp);
+                                em.remove(tmp);
+                            }
+                        }
+                    }
+                }
+                if (tipoPlanillaDto.getTipoMovimientosPlanilla() != null && !tipoPlanillaDto.getTipoMovimientosPlanilla().isEmpty()) {
+                    for (TipoMovimientoPlanillaDto tmpDto : tipoPlanillaDto.getTipoMovimientosPlanilla()) {
+                        if (tmpDto.getModificado() != null && tmpDto.getModificado()) {
+                            if (tmpDto.getId() != null && tmpDto.getId() > 0) {
+                                TipomovimientoPlanilla tmp = em.find(TipomovimientoPlanilla.class, tmpDto.getId());
+                                if (tmp != null) {
+                                    tmp.update(tmpDto);
+                                    if (tmpDto.getTipoMovimientos() != null && tmpDto.getTipoMovimientos().getId() != null) {
+                                        tmp.setTmovId(em.find(TipoMovimientos.class, tmpDto.getTipoMovimientos().getId()));
+                                    }
+                                    em.merge(tmp);
+                                }
+                            } else {
+                                TipomovimientoPlanilla tmp = new TipomovimientoPlanilla(tmpDto);
+                                tmp.setTipoPlanillaId(tipoPlanilla);
+                                if (tmpDto.getTipoMovimientos() != null && tmpDto.getTipoMovimientos().getId() != null) {
+                                    tmp.setTmovId(em.find(TipoMovimientos.class, tmpDto.getTipoMovimientos().getId()));
+                                }
+                                tipoPlanilla.getPlamTipmovplanillaList().add(tmp);
+                                em.persist(tmp);
+                            }
+                        }
+                    }
+                }
+
                 tipoPlanilla = em.merge(tipoPlanilla);
             } else {
                 tipoPlanilla = new TipoPlanilla(tipoPlanillaDto);
                 em.persist(tipoPlanilla);
+                if (tipoPlanillaDto.getTipoMovimientosPlanilla() != null && !tipoPlanillaDto.getTipoMovimientosPlanilla().isEmpty()) {
+                    for (TipoMovimientoPlanillaDto tmpDto : tipoPlanillaDto.getTipoMovimientosPlanilla()) {
+                        TipomovimientoPlanilla tmp = new TipomovimientoPlanilla(tmpDto);
+                        tmp.setTipoPlanillaId(tipoPlanilla);
+                        if (tmpDto.getTipoMovimientos() != null && tmpDto.getTipoMovimientos().getId() != null) {
+                            tmp.setTmovId(em.find(TipoMovimientos.class, tmpDto.getTipoMovimientos().getId()));
+                        }
+                        tipoPlanilla.getPlamTipmovplanillaList().add(tmp);
+                        em.persist(tmp);
+                    }
+                }
             }
             em.flush();
             return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "TipoPlanilla", new TipoPlanillaDto(tipoPlanilla));

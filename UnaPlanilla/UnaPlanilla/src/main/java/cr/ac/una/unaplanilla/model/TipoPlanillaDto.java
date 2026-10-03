@@ -27,6 +27,8 @@ public class TipoPlanillaDto {
     private Long version;
     private ObservableList<EmpleadoDto> empleados;
     private List<EmpleadoDto> empleadosEliminados;
+    private ObservableList<TipoMovimientoPlanillaDto> tipoMovimientosPlanilla;
+    private List<TipoMovimientoPlanillaDto> tipoMovimientosPlanillaEliminados;
     private Boolean modificado;
 
     public TipoPlanillaDto() {
@@ -38,6 +40,8 @@ public class TipoPlanillaDto {
         this.modificado = false;
         empleados = FXCollections.observableArrayList();
         empleadosEliminados = new ArrayList<>();
+        tipoMovimientosPlanilla = FXCollections.observableArrayList();
+        tipoMovimientosPlanillaEliminados = new ArrayList<>();
     }
 
     public Long getId() {
@@ -168,6 +172,22 @@ public class TipoPlanillaDto {
 
     public void setEmpleadosEliminados(List<EmpleadoDto> empleadosEliminados) {
         this.empleadosEliminados = empleadosEliminados;
+    }
+
+    public ObservableList<TipoMovimientoPlanillaDto> getTipoMovimientosPlanilla() {
+        return tipoMovimientosPlanilla;
+    }
+
+    public void setTipoMovimientosPlanilla(List<TipoMovimientoPlanillaDto> tipoMovimientosPlanilla) {
+        this.tipoMovimientosPlanilla = FXCollections.observableArrayList(tipoMovimientosPlanilla);
+    }
+
+    public List<TipoMovimientoPlanillaDto> getTipoMovimientosPlanillaEliminados() {
+        return tipoMovimientosPlanillaEliminados;
+    }
+
+    public void setTipoMovimientosPlanillaEliminados(List<TipoMovimientoPlanillaDto> tipoMovimientosPlanillaEliminados) {
+        this.tipoMovimientosPlanillaEliminados = tipoMovimientosPlanillaEliminados;
     }
 
     @Override

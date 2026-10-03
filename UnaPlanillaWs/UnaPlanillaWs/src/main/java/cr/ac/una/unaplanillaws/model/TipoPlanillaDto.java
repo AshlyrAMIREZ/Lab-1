@@ -35,10 +35,15 @@ public class TipoPlanillaDto {
     private Boolean modificado;
     private List<EmpleadoDto> empleados;
     private List<EmpleadoDto> empleadosEliminados;
+    private List<TipoMovimientoPlanillaDto> tipoMovimientosPlanilla;
+    private List<TipoMovimientoPlanillaDto> tipoMovimientosPlanillaEliminados;
 
     public TipoPlanillaDto() {
+        this.modificado = false;
         this.empleados = new ArrayList<>();
         this.empleadosEliminados = new ArrayList<>();
+        this.tipoMovimientosPlanilla = new ArrayList<>();
+        this.tipoMovimientosPlanillaEliminados = new ArrayList<>();
     }
 
     public TipoPlanillaDto(TipoPlanilla tipoPlanilla) {
@@ -51,6 +56,11 @@ public class TipoPlanillaDto {
         this.mesUltimaPlanilla = tipoPlanilla.getMesUltimaPlanilla();
         this.activo = tipoPlanilla.getEstado().equals("A");
         this.version = tipoPlanilla.getVersion();
+        if (tipoPlanilla.getPlamTipmovplanillaList() != null) {
+            for (TipomovimientoPlanilla tmp : tipoPlanilla.getPlamTipmovplanillaList()) {
+                this.tipoMovimientosPlanilla.add(new TipoMovimientoPlanillaDto(tmp));
+            }
+        }
     }
 
     public Long getId() {
@@ -139,6 +149,22 @@ public class TipoPlanillaDto {
 
     public void setEmpleadosEliminados(List<EmpleadoDto> empleadosEliminados) {
         this.empleadosEliminados = empleadosEliminados;
+    }
+
+    public List<TipoMovimientoPlanillaDto> getTipoMovimientosPlanilla() {
+        return tipoMovimientosPlanilla;
+    }
+
+    public void setTipoMovimientosPlanilla(List<TipoMovimientoPlanillaDto> tipoMovimientosPlanilla) {
+        this.tipoMovimientosPlanilla = tipoMovimientosPlanilla;
+    }
+
+    public List<TipoMovimientoPlanillaDto> getTipoMovimientosPlanillaEliminados() {
+        return tipoMovimientosPlanillaEliminados;
+    }
+
+    public void setTipoMovimientosPlanillaEliminados(List<TipoMovimientoPlanillaDto> tipoMovimientosPlanillaEliminados) {
+        this.tipoMovimientosPlanillaEliminados = tipoMovimientosPlanillaEliminados;
     }
 
     @Override

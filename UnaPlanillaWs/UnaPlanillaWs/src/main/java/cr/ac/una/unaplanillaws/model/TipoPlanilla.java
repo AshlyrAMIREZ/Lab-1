@@ -6,6 +6,7 @@
 package cr.ac.una.unaplanillaws.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -78,9 +79,12 @@ public class TipoPlanilla implements Serializable {
     private List<TipomovimientoPlanilla> plamTipomovimientosplanillaList;
 
     public TipoPlanilla() {
+        this.empleados = new ArrayList<>();
+        this.plamTipomovimientosplanillaList = new ArrayList<>();
     }
 
     public TipoPlanilla(TipoPlanillaDto tipoPlanillaDto) {
+        this();
         this.id = tipoPlanillaDto.getId();
         actualizar(tipoPlanillaDto);
     }

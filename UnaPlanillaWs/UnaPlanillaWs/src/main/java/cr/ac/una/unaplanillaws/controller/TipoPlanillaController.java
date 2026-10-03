@@ -65,7 +65,7 @@ public class TipoPlanillaController {
     @Path("/guardar")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response guardarTipoPlanilla(@PathParam("tipoPlanilla") TipoPlanillaDto planilla) {
+    public Response guardarTipoPlanilla(TipoPlanillaDto planilla) {
         try {
             Respuesta respuesta = service.guardarTipoPlanilla(planilla);
             if (!respuesta.getEstado()) {

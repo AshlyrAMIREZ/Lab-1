@@ -7,12 +7,13 @@ package cr.ac.una.unaplanillaws.model;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.util.Objects;
 
 /**
  *
  * @author Oscar
  */
-class TipoMovimientosDto {
+public class TipoMovimientosDto {
 
     private Long id;
     @NotBlank(message = "El tipo de movimiento no puede estar vacio")
@@ -35,20 +36,28 @@ class TipoMovimientosDto {
     
     private Boolean estado;
     private Long version;
+    private Boolean modificado;
 
     public TipoMovimientosDto() {
+        this.modificado = false;
+    }
+
+    public TipoMovimientosDto(Long id) {
+        this();
+        this.id = id;
     }
 
     public TipoMovimientosDto(TipoMovimientos tiposMovimientos) {
+        this();
         this.id = tiposMovimientos.getId();
         this.tipo = tiposMovimientos.getTipo();
         this.descripcion = tiposMovimientos.getDescripcion();
-        this.gravable = tiposMovimientos.getGravable().equals("S");
-        this.impRenta = tiposMovimientos.getImpRenta().equals("S");
+        this.gravable = tiposMovimientos.getGravable() != null && tiposMovimientos.getGravable().equals("S");
+        this.impRenta = tiposMovimientos.getImpRenta() != null && tiposMovimientos.getImpRenta().equals("S");
         this.tipoMonto = tiposMovimientos.getTipoMonto();
         this.monto = tiposMovimientos.getMonto();
         this.tipoAplDedPorc = tiposMovimientos.getTipoAplDedPorc();
-        this.estado = tiposMovimientos.getEstado().equals("A");
+        this.estado = tiposMovimientos.getEstado() != null && tiposMovimientos.getEstado().equals("A");
         this.version = tiposMovimientos.getVersion();
     }
 
@@ -130,6 +139,36 @@ class TipoMovimientosDto {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    public Boolean getModificado() {
+        return modificado;
+    }
+
+    public void setModificado(Boolean modificado) {
+        this.modificado = modificado;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TipoMovimientosDto other = (TipoMovimientosDto) obj;
+        return Objects.equals(this.id, other.id);
     }
 
 }
