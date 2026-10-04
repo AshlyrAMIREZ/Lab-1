@@ -1,6 +1,8 @@
 package cr.ac.una.unaplanilla.model;
 
 import java.util.Objects;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -11,7 +13,7 @@ import javafx.beans.property.StringProperty;
 public class TipoMovimientoPlanillaDto {
 
     private StringProperty id;
-    private StringProperty tipoMonto;
+    private ObjectProperty<String> tipoMonto;
     private StringProperty monto;
     private StringProperty tipoAplDedPorc;
     private Long version;
@@ -20,7 +22,7 @@ public class TipoMovimientoPlanillaDto {
 
     public TipoMovimientoPlanillaDto() {
         this.id = new SimpleStringProperty("");
-        this.tipoMonto = new SimpleStringProperty("A");
+        this.tipoMonto = new SimpleObjectProperty("A");
         this.monto = new SimpleStringProperty("");
         this.tipoAplDedPorc = new SimpleStringProperty("T");
         this.modificado = false;
@@ -93,7 +95,7 @@ public class TipoMovimientoPlanillaDto {
         return id;
     }
 
-    public StringProperty getTipoMontoProperty() {
+    public ObjectProperty getTipoMontoProperty() {
         return tipoMonto;
     }
 

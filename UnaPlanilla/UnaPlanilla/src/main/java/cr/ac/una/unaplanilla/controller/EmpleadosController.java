@@ -280,7 +280,7 @@ public class EmpleadosController extends Controller implements Initializable {
     private void onActionBtnEliminar(ActionEvent event) {
         try {
             if (this.empleadoDto.getId() == null) {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar Empleado", getStage(), "Favor consultar el empleado a eliminar.");
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Eliminar Empleado", getStage(), "Favor consultar el empleado a eliminar.");
             } else {
                 EmpleadoService empleadoService = new EmpleadoService();
                 Respuesta respuesta = empleadoService.eliminarEmpleado(this.empleadoDto.getId());

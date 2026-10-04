@@ -2,7 +2,9 @@ package cr.ac.una.unaplanilla.model;
 
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -15,11 +17,11 @@ public class TipoMovimientosDto {
     private StringProperty id;
     private StringProperty tipo;
     private StringProperty descripcion;
-    private BooleanProperty gravable;
-    private BooleanProperty impRenta;
-    private StringProperty tipoMonto;
+    private ObjectProperty<Boolean> gravable;
+    private ObjectProperty<Boolean> impRenta;
+    private ObjectProperty<String> tipoMonto;
     private StringProperty monto;
-    private StringProperty tipoAplDedPorc;
+    private ObjectProperty<String> tipoAplDedPorc;
     private BooleanProperty estado;
     private Long version;
     private Boolean modificado;
@@ -28,11 +30,11 @@ public class TipoMovimientosDto {
         this.id = new SimpleStringProperty("");
         this.tipo = new SimpleStringProperty("I");
         this.descripcion = new SimpleStringProperty("");
-        this.gravable = new SimpleBooleanProperty(false);
-        this.impRenta = new SimpleBooleanProperty(false);
-        this.tipoMonto = new SimpleStringProperty("A");
+        this.gravable = new SimpleObjectProperty(false);
+        this.impRenta = new SimpleObjectProperty(false);
+        this.tipoMonto = new SimpleObjectProperty("A");
         this.monto = new SimpleStringProperty("");
-        this.tipoAplDedPorc = new SimpleStringProperty("T");
+        this.tipoAplDedPorc = new SimpleObjectProperty("T");
         this.estado = new SimpleBooleanProperty(true);
         this.modificado = false;
     }
@@ -143,15 +145,15 @@ public class TipoMovimientosDto {
         return descripcion;
     }
 
-    public BooleanProperty getGravableProperty() {
+    public ObjectProperty getGravableProperty() {
         return gravable;
     }
 
-    public BooleanProperty getImpRentaProperty() {
+    public ObjectProperty getImpRentaProperty() {
         return impRenta;
     }
 
-    public StringProperty getTipoMontoProperty() {
+    public ObjectProperty getTipoMontoProperty() {
         return tipoMonto;
     }
 
@@ -159,7 +161,7 @@ public class TipoMovimientosDto {
         return monto;
     }
 
-    public StringProperty getTipoAplDedPorcProperty() {
+    public ObjectProperty getTipoAplDedPorcProperty() {
         return tipoAplDedPorc;
     }
 
