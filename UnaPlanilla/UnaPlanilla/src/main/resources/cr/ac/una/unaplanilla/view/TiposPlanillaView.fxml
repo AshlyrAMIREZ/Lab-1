@@ -111,25 +111,28 @@
                                              <VBox.margin>
                                                 <Insets bottom="5.0" top="5.0" />
                                              </VBox.margin>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
                                           </TableView>
                                        </children>
                                     </VBox>
                                  </children></AnchorPane>
                           </content>
                         </Tab>
-                        <Tab fx:id="tbpMovimientoPlanillas" text="Movimiento Planilla">
+                        <Tab fx:id="tbpMovimientoPlanillas" onSelectionChanged="#selectionChangeTabMov" text="Movimiento Planilla">
                            <content>
                               <AnchorPane>
                                  <children>
                                     <VBox layoutX="20.0" layoutY="14.0" prefHeight="342.0" prefWidth="255.0" spacing="20.0" style="-fx-padding: 25 40 0 40;" styleClass="jfx-contenedor-principal" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
                                        <children>
-                                          <HBox prefHeight="250.0" prefWidth="579.0">
+                                          <HBox prefHeight="250.0" prefWidth="628.0">
                                              <children>
-                                                <VBox prefHeight="242.0" prefWidth="186.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                                                <VBox prefHeight="250.0" prefWidth="186.0" spacing="20.0" HBox.hgrow="ALWAYS">
                                                    <children>
                                                       <HBox alignment="CENTER_LEFT">
                                                          <children>
-                                                            <MFXTextField fx:id="txfId" floatingText="Id" minWidth="60.0" onKeyPressed="#onKeyPressTxtId" prefHeight="22.0" prefWidth="150.0" styleClass="jfx-txt-id" />
+                                                            <MFXTextField fx:id="txfIdPlanilla" floatingText="Id" minWidth="60.0" onKeyPressed="#onKeyPressTxtIdPlanilla" prefHeight="22.0" prefWidth="150.0" styleClass="jfx-txt-id" />
                                                             <HBox prefHeight="42.0" prefWidth="33.0" />
                                                             <MFXButton fx:id="btnAgregarMovimiento" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onActionBtnAgregarMovimiento" prefHeight="36.0" prefWidth="38.0" styleClass="jfx-btnimg-agregar">
                                                                <graphic>
@@ -157,10 +160,11 @@
                                                    <children>
                                                       <TableView fx:id="tbvPlanillas" prefHeight="242.0" prefWidth="268.0" VBox.vgrow="ALWAYS">
                                                         <columns>
-                                                          <TableColumn prefWidth="40.0" text="Id" />
-                                                          <TableColumn prefWidth="57.60003662109375" text="Tipo" />
-                                                            <TableColumn prefWidth="70.40001678466797" text="Monto" />
-                                                            <TableColumn prefWidth="105.60000610351562" text="Deducción" />
+                                                          <TableColumn fx:id="tbcIdPlanilla" prefWidth="33.600038170814514" text="Id" />
+                                                          <TableColumn fx:id="tbcTipoMovimiento" prefWidth="44.0" text="Tipo" />
+                                                            <TableColumn fx:id="tbcMonto" prefWidth="61.59996795654297" text="Monto" />
+                                                            <TableColumn fx:id="tbcDeduccion" prefWidth="86.39999389648438" text="Deducción" />
+                                                            <TableColumn fx:id="tbcEliminar1" prefWidth="60.0" text="Eliminar" />
                                                         </columns>
                                                          <columnResizePolicy>
                                                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -172,7 +176,7 @@
                                           </HBox>
                                        </children>
                                        <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
                                     </VBox>
                                  </children>

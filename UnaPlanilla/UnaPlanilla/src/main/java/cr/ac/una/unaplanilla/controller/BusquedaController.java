@@ -271,7 +271,7 @@ public class BusquedaController extends Controller implements Initializable {
                 Respuesta respuesta = service.getTiposPlanilla(codigo.toUpperCase(), des.toUpperCase(), plaMes.toUpperCase(), idEmp.toUpperCase(), cedula.toUpperCase());
 
                 if (respuesta.getEstado()) {
-                    ObservableList<TipoPlanillaDto> tipoPlanillas = FXCollections.observableList((List<TipoPlanillaDto>) respuesta.getResultado("TipoPlanillas"));
+                    ObservableList<TipoPlanillaDto> tipoPlanillas = FXCollections.observableList((List<TipoPlanillaDto>) respuesta.getResultado("Planillas"));
                     tbvResultados.setItems(tipoPlanillas);
                     tbvResultados.refresh();
                 } else {

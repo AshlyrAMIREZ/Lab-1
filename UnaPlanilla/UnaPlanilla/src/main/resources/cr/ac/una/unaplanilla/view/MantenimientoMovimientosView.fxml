@@ -2,7 +2,6 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXRadioButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -22,7 +21,7 @@
                   <Label prefHeight="45.0" prefWidth="430.0" styleClass="jfx-titulo-label" text="Mantenimiento de Movimientos" />
                   <AnchorPane>
                      <children>
-                        <VBox layoutX="20.0" layoutY="14.0" prefHeight="342.0" prefWidth="255.0" spacing="20.0" style="-fx-padding: 25 40 0 40;" styleClass="jfx-contenedor-principal" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="9.0">
+                        <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="14.0" prefHeight="342.0" prefWidth="255.0" spacing="20.0" style="-fx-padding: 25 40 0 40;" styleClass="jfx-contenedor-principal" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="9.0">
                            <children>
                               <HBox alignment="CENTER_LEFT" spacing="20.0">
                                  <children>
@@ -80,12 +79,25 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="20.0">
                                  <children>
-                                    <MFXComboBox fx:id="cbxDeducciones" floatingText="Deducciones Porcentuales" prefWidth="277.0" />
+                                    <MFXTextField fx:id="txtDescripcion" floatingText="Descripcion" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="593.0" />
                                     <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="265.0" />
                                     <MFXTextField fx:id="txtMonto" floatingText="Monto" prefWidth="393.0" />
                                  </children>
                               </HBox>
-                              <MFXTextField fx:id="txtDescripcion" floatingText="Descripcion" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="382.0" VBox.vgrow="NEVER" />
+                              <Label text="Tipo de Deducción Porcentual" />
+                              <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                 <children>
+                                    <MFXRadioButton fx:id="rdbSiGravable1" selected="true" text="Todos">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tggDeducciones" />
+                                       </toggleGroup>
+                                    </MFXRadioButton>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="138.0" HBox.hgrow="ALWAYS" />
+                                    <MFXRadioButton fx:id="rdbAbsoluto1" text="Gravables" toggleGroup="$tggDeducciones" />
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="142.0" />
+                                    <MFXRadioButton fx:id="rdbSiImprenta1" text="Renta" toggleGroup="$tggDeducciones" />
+                                 </children>
+                              </HBox>
                            </children>
                            <padding>
                               <Insets left="40.0" right="40.0" top="20.0" />
