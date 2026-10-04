@@ -225,11 +225,9 @@ public class TiposPlanillaController extends Controller implements Initializable
             movimientoProperty.addListener((obs, oldVal, newVal) -> {
                 if (oldVal != null) {
                     txfMonto.textProperty().unbindBidirectional(oldVal.getMontoProperty());
-                    BindingUtils.unbindToggleGroupToProperty(tggTipoMonto, oldVal.getTipoMontoProperty());
                 }
                 if (newVal != null) {
                     txfMonto.textProperty().bindBidirectional(newVal.getMontoProperty());
-                    BindingUtils.bindToggleGroupToProperty(tggTipoMonto, newVal.getTipoMontoProperty());
                 }
             });
         } catch (Exception ex) {
@@ -272,7 +270,6 @@ public class TiposPlanillaController extends Controller implements Initializable
         this.movimientoProperty.setValue(this.tipoMovimientoPlanillaDto);
         txfIdPlanilla.clear();
         cbxDeducciones.getSelectionModel().clearSelection();
-        sincronizarFormularioMovimiento();
     }
 
     private void cargarPlanilla() {
