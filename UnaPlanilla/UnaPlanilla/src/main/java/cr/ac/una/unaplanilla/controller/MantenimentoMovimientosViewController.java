@@ -115,7 +115,7 @@ public class MantenimentoMovimientosViewController extends Controller implements
                 new Mensaje().showModal(Alert.AlertType.ERROR, "Eliminar Tipo Movimiento", getStage(), "Favor consultar el tipo de movimiento a eliminar.");
             } else {
                 TipoMovimientosService tipoMovimientosService = new TipoMovimientosService();
-                Respuesta respuesta = tipoMovimientosService.eliminarEmpleado(this.tipoMovimientosDto.getId());
+                Respuesta respuesta = tipoMovimientosService.eliminarTipoMovimiento(this.tipoMovimientosDto.getId());
                 if (respuesta.getEstado()) {
                     cargarValoresDefecto();
                     new Mensaje().showModal(Alert.AlertType.INFORMATION, "Eliminar Tipo Movimiento", getStage(), "El tipo de movimiento se eliminó correctamente.");
