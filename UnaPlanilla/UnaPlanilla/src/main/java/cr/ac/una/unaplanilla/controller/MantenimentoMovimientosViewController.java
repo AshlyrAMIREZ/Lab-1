@@ -73,12 +73,6 @@ public class MantenimentoMovimientosViewController extends Controller implements
     @FXML
     private MFXRadioButton rdbNoImprenta;
     @FXML
-    private MFXRadioButton rdbTodos;
-    @FXML
-    private MFXRadioButton rdbGravable;
-    @FXML
-    private MFXRadioButton rdbRenta;
-    @FXML
     private MFXTextField txtDescripcion;
     @FXML
     private MFXTextField txtMonto;
