@@ -73,17 +73,17 @@ public class MantenimentoMovimientosViewController extends Controller implements
     @FXML
     private MFXRadioButton rdbNoImprenta;
     @FXML
+    private MFXRadioButton rdbTodos;
+    @FXML
+    private MFXRadioButton rdbGravable;
+    @FXML
+    private MFXRadioButton rdbRenta;
+    @FXML
     private MFXTextField txtDescripcion;
     @FXML
     private MFXTextField txtMonto;
     @FXML
-    private MFXRadioButton rdbSiGravable1;
-    @FXML
     private ToggleGroup tggDeducciones;
-    @FXML
-    private MFXRadioButton rdbAbsoluto1;
-    @FXML
-    private MFXRadioButton rdbSiImprenta1;
     @FXML
     private MFXButton btnNuevo;
     @FXML
@@ -130,7 +130,7 @@ public class MantenimentoMovimientosViewController extends Controller implements
     }
 
     @FXML
-    private void onActionBtnGuardar(ActionEvent event) {        
+    private void onActionBtnGuardar(ActionEvent event) {
         try {
             String invalidos = validarRequeridos();
             if (!invalidos.isEmpty()) {
@@ -141,7 +141,7 @@ public class MantenimentoMovimientosViewController extends Controller implements
                 if (!respuesta.getEstado()) {
                     new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar Tipo Movimiento", getStage(), respuesta.getMensaje());
                 } else {
-                    this.tipoMovimientosDto = (TipoMovimientosDto)respuesta.getResultado("TipoMovimiento");
+                    this.tipoMovimientosDto = (TipoMovimientosDto) respuesta.getResultado("TipoMovimiento");
                     this.tipoMovimientosProperty.set(this.tipoMovimientosDto);
                     validarRequeridos();
                     new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar Tipo Movimiento", getStage(), "El tipo de movimiento se guardó correctamente.");
@@ -152,7 +152,7 @@ public class MantenimentoMovimientosViewController extends Controller implements
             new Mensaje().showModal(Alert.AlertType.ERROR, "Guardar Tipo Movimiento", getStage(), "Ocurrio un error guardando el tipo de movimiento.");
         }
     }
-    
+
     private void cargarMovimientoPlanilla(Long id) {
         try {
             TipoMovimientosService tipoMovimientosService = new TipoMovimientosService();
@@ -169,7 +169,7 @@ public class MantenimentoMovimientosViewController extends Controller implements
             new Mensaje().showModal(Alert.AlertType.ERROR, "Buscar Tipo Movimiento", getStage(), "Ocurrió un error buscando el tipo de movimiento.");
         }
     }
-    
+
     private void bindMovimientos() {
         try {
             tipoMovimientosProperty.addListener((obs, oldVal, newVal) -> {
@@ -203,7 +203,7 @@ public class MantenimentoMovimientosViewController extends Controller implements
                     "Ocurrió un error al realizar el bindeo.");
         }
     }
-    
+
     private void cargarValoresDefecto() {
         tipoMovimientosDto = new TipoMovimientosDto();
         tipoMovimientosDto.setEstado(Boolean.TRUE);
@@ -214,14 +214,14 @@ public class MantenimentoMovimientosViewController extends Controller implements
         tipoMovimientosProperty.setValue(tipoMovimientosDto);
         txtId.clear();
         txtId.requestFocus();
-        
+
     }
-    
+
     private void indicarRequeridos() {
         requeridos.clear();
         requeridos.addAll(Arrays.asList(txtId, txtDescripcion, txtMonto));
     }
-   
+
     public String validarRequeridos() {
         Boolean validos = true;
         String invalidos = "";
@@ -262,7 +262,7 @@ public class MantenimentoMovimientosViewController extends Controller implements
             return "Campos requeridos o con problemas de formato [" + invalidos + "].";
         }
     }
-    
+
     /**
      * Initializes the controller class.
      */
@@ -275,6 +275,9 @@ public class MantenimentoMovimientosViewController extends Controller implements
         rdbPorcentual.setUserData("P");
         rdbSiImprenta.setUserData("S");
         rdbNoImprenta.setUserData("N");
+        rdbGravable.setUserData("G");
+        rdbRenta.setUserData("R");
+        rdbTodos.setUserData("T");
         txtId.delegateSetTextFormatter(Formato.getInstance().integerFormat());
         txtMonto.delegateSetTextFormatter(Formato.getInstance().integerFormat());
         txtDescripcion.delegateSetTextFormatter(Formato.getInstance().letrasFormat(40));
@@ -282,10 +285,10 @@ public class MantenimentoMovimientosViewController extends Controller implements
         bindMovimientos();
         cargarValoresDefecto();
         indicarRequeridos();
-    }    
+    }
 
     @Override
-    public void initialize() {}
+    public void initialize() {
+    }
 
-    
 }

@@ -45,7 +45,7 @@ public class EmpleadoDto {
     @NotBlank(message = "El correo del empleado no puede estar vacio")
     @Email(message = "El correo no cumple con el formato")
     @Size(max = 100, message = "El correo no puede exceder 100 caracteres")
-    @Pattern(regexp = "^[\\w.-]+@[\\w.+\\.[a-zA-Z]{2,}$", message = "El correo no cumple con el formato designado")
+    @Pattern(regexp = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$", message = "El correo no cumple con el formato designado")
     private String correo;
 
     @NotNull(message = "El campo administrador no puede ser nulo")

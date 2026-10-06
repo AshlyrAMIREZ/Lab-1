@@ -87,15 +87,15 @@
                               <Label text="Tipo de Deducción Porcentual" />
                               <HBox alignment="CENTER_LEFT" spacing="20.0">
                                  <children>
-                                    <MFXRadioButton fx:id="rdbSiGravable1" selected="true" text="Todos">
+                                    <MFXRadioButton fx:id="rdbTodos" selected="true" text="Todos">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="tggDeducciones" />
                                        </toggleGroup>
                                     </MFXRadioButton>
                                     <HBox alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="138.0" HBox.hgrow="ALWAYS" />
-                                    <MFXRadioButton fx:id="rdbAbsoluto1" text="Gravables" toggleGroup="$tggDeducciones" />
+                                    <MFXRadioButton fx:id="rdbGravable" text="Gravables" toggleGroup="$tggDeducciones" />
                                     <HBox alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="142.0" />
-                                    <MFXRadioButton fx:id="rdbSiImprenta1" text="Renta" toggleGroup="$tggDeducciones" />
+                                    <MFXRadioButton fx:id="rdbRenta" text="Renta" toggleGroup="$tggDeducciones" />
                                  </children>
                               </HBox>
                            </children>
