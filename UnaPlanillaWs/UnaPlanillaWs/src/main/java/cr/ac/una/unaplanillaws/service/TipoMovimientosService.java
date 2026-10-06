@@ -103,10 +103,10 @@ public class TipoMovimientosService {
             em.flush();
             return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "");
         } catch (Exception ex) {
-            if (ex.getCause() != null && ex.getCause().getCause().getClass() == SQLIntegrityConstraintViolationException.class) {
+            if (ex.getCause() != null && ex.getCause().getCause() != null && ex.getCause().getCause().getClass() == SQLIntegrityConstraintViolationException.class) {
                 return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "No se puede eliminar el tipo de movimiento porque tiene relaciones con otros registros.", "eliminarTipoMovimiento " + ex.getMessage());
             }
-            LOG.log(Level.SEVERE, "Ocurrio un error al guardar el tipo de movimiento.", ex);
+            LOG.log(Level.SEVERE, "Ocurrio un error al eliminar el tipo de movimiento.", ex);
             return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al eliminar el tipo de movimiento.", "eliminarTipoMovimiento " + ex.getMessage());
         }
      }

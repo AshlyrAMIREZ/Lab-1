@@ -17,13 +17,14 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import java.io.Serializable;
 /**
  *
  * @author Oscar
  */
 @Entity
-@Table(name = "PLAM_TIPMOVPLANILLA")
+@Table(name = "PLAM_TIPMOVPLANILLA", schema = "UNA")
 @NamedQueries({
     @NamedQuery(name = "TipomovimientoPlanilla.findAll", query = "SELECT p FROM TipomovimientoPlanilla p"),
     @NamedQuery(name = "TipomovimientoPlanilla.findById", query = "SELECT p FROM TipomovimientoPlanilla p WHERE p.id = :id")})
@@ -48,6 +49,7 @@ public class TipomovimientoPlanilla implements Serializable {
     @Basic(optional = false)
     @Column(name = "TPM_TIPOAPLDEDPORC")
     private String tipoAplDedPorc;
+    @Version
     @Basic(optional = false)
     @Column(name = "TPM_VERSION")
     private Long version;

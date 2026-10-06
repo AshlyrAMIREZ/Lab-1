@@ -1,4 +1,4 @@
-﻿/*
+/*
 Created: 7/19/2017
 Modified: 9/22/2026
 Model: UnaPlanilla
@@ -125,15 +125,15 @@ END;
 /
 
 -- Trigger for sequence plam_tipomovimientos_seq01 for column tmov_id in table plam_tipomovimientos ---------
-CREATE OR REPLACE TRIGGER plam_tipomovimientos_plam_01 BEFORE INSERT
+CREATE OR REPLACE TRIGGER plam_tipomovimientos_tgr_01 BEFORE INSERT
 ON plam_tipomovimientos FOR EACH ROW
 BEGIN
   IF :new.tmov_id IS NULL OR :new.tmov_id <= 0 THEN
-     :new.tmov_id := plam_tipomovimientos_seq01.nextval
+     :new.tmov_id := plam_tipomovimientos_seq01.nextval;
   END IF;
 END;
 /
-CREATE OR REPLACE TRIGGER plam_tipomovimientos_plam_02 AFTER UPDATE OF tmov_id
+CREATE OR REPLACE TRIGGER plam_tipomovimientos_tgr_02 AFTER UPDATE OF tmov_id
 ON plam_tipomovimientos FOR EACH ROW
 BEGIN
   RAISE_APPLICATION_ERROR(-20010,'Cannot update column tmov_id in table plam_tipomovimientos as it uses sequence.');

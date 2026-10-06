@@ -16,10 +16,12 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ import java.util.List;
  * @author Oscar
  */
 @Entity
-@Table(name = "PLAM_TIPOMOVIMIENTOS")
+@Table(name = "PLAM_TIPOMOVIMIENTOS", schema = "UNA")
 @NamedQueries({
     @NamedQuery(name = "TipoMovimientos.findAll", query = "SELECT p FROM TipoMovimientos p"),
     @NamedQuery(name = "TipoMovimientos.findById", query = "SELECT p FROM TipoMovimientos p WHERE p.id = :id"),
@@ -66,6 +68,7 @@ public class TipoMovimientos implements Serializable {
     @Basic(optional = false)
     @Column(name = "TMOV_ESTADO")
     private String estado;
+    @Version
     @Basic(optional = false)
     @Column(name = "TMOV_VERSION")
     private Long version;
@@ -74,9 +77,11 @@ public class TipoMovimientos implements Serializable {
     private List<TipomovimientoPlanilla> tiposMovimientoPlanilla;
 
     public TipoMovimientos() {
+        this.tiposMovimientoPlanilla = new ArrayList<>();
     }
 
     public TipoMovimientos(TipoMovimientosDto dto) {
+        this();
         this.id = dto.getId();
         update(dto);
     }
@@ -84,12 +89,12 @@ public class TipoMovimientos implements Serializable {
     public void update(TipoMovimientosDto dto) {
         this.tipo = dto.getTipo();
         this.descripcion = dto.getDescripcion();
-        this.gravable = dto.getGravable() ? "S": "N";
-        this.impRenta = dto.getImpRenta()? "S": "N";
+        this.gravable = Boolean.TRUE.equals(dto.getGravable()) ? "S" : "N";
+        this.impRenta = Boolean.TRUE.equals(dto.getImpRenta()) ? "S" : "N";
         this.tipoMonto = dto.getTipoMonto();
         this.monto = dto.getMonto();
         this.tipoAplDedPorc = dto.getTipoAplDedPorc();
-        this.estado = dto.getEstado() ? "A" : "I";
+        this.estado = Boolean.TRUE.equals(dto.getEstado()) ? "A" : "I";
         this.version = dto.getVersion();
     }
 

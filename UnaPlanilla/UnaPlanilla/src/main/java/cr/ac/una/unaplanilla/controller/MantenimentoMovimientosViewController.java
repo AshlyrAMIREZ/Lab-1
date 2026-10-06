@@ -219,7 +219,7 @@ public class MantenimentoMovimientosViewController extends Controller implements
 
     private void indicarRequeridos() {
         requeridos.clear();
-        requeridos.addAll(Arrays.asList(txtId, txtDescripcion, txtMonto));
+        requeridos.addAll(Arrays.asList(txtDescripcion, txtMonto));
     }
 
     public String validarRequeridos() {
