@@ -5,6 +5,7 @@
  */
 package cr.ac.una.unaplanillaws.model;
 
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,9 +27,11 @@ public class TipoPlanillaDto {
     private String descripcion;
     @Min(value = 1, message = "La cantidad de planillas por mes debe ser minimo 1")
     private Integer planillaPorMes;
-    @Size(min = 1960, max = 2100, message = "El año de la ultima planilla debe contener año valido")
+    @Min(value = 1960, message = "El año de la ultima planilla debe ser mayor a 1960")
+    @Max(value = 2100, message = "El año de la ultima planilla debe ser menor a 2100")
     private Integer anoUltimaPlanilla;
-    @Size(min = 1, max = 12, message = "El mes de la planilla debe estar en el rango de 1 a 12")
+    @Min(value = 1, message = "El mes de la planilla debe estar en el rango de 1 a 12")
+    @Max(value = 12, message = "El mes de la planilla debe estar en el rango de 1 a 12")
     private Integer mesUltimaPlanilla;
     private Boolean activo;
     private Long version;

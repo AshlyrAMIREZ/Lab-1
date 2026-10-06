@@ -28,7 +28,7 @@ public class TipoPlanillaService {
                 return new Respuesta(false, request.getError(), "");
             }
             TipoPlanillaDto planillaDto = (TipoPlanillaDto) request.readEntity(TipoPlanillaDto.class);
-            return new Respuesta(true, "", "", "Planilla", planillaDto);
+            return new Respuesta(true, "", "", "TipoPlanilla", planillaDto);
         } catch (Exception ex) {
             Logger.getLogger(TipoPlanillaService.class.getName()).log(Level.SEVERE, "Ocurrio un error al consultar el tipo de planilla.", ex);
             return new Respuesta(false, "Ocurrio un error al consultar el tipo de planilla.", "getTipoPlanilla " + ex.getMessage());
@@ -65,7 +65,7 @@ public class TipoPlanillaService {
                 return new Respuesta(false, request.getError(), "");
             }
             TipoPlanillaDto planilla = (TipoPlanillaDto) request.readEntity(TipoPlanillaDto.class);
-            return new Respuesta(true, "", "", "Planilla", planilla);
+            return new Respuesta(true, "", "", "TipoPlanilla", planilla);
             
         } catch (Exception ex) {
             Logger.getLogger(TipoPlanillaService.class.getName()).log(Level.SEVERE, "Ocurrio un error al guardar el tipo de planilla.", ex);

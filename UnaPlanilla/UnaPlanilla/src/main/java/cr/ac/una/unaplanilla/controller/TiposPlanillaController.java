@@ -163,6 +163,8 @@ public class TiposPlanillaController extends Controller implements Initializable
                 this.empleadoProperty.setValue(this.empleadoDto);
             }
         });
+        cargarValoresDefecto();
+        indicarRequeridos();
     }
 
     @Override
@@ -219,7 +221,7 @@ public class TiposPlanillaController extends Controller implements Initializable
                     "Ocurrió un error al realizar el bindeo.");
         }
     }
-  
+
     private void cargarValoresDefecto() {
         this.tipoPlanillaDto = new TipoPlanillaDto();
         this.tipoPlanillaDto.setActivo(Boolean.TRUE);
@@ -359,7 +361,8 @@ public class TiposPlanillaController extends Controller implements Initializable
     @FXML
     private void selectionChangeTabEmp(Event event) {
         if (tbpInclusionEmpleados.isSelected()) {
-            if (this.tipoPlanillaDto.getId() == null) {
+            // Agrega la validación de null
+            if (this.tipoPlanillaDto == null || this.tipoPlanillaDto.getId() == null) {
                 new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Empleado", getStage(),
                         "Debe cargar el tipo de planilla al que desea agregar empleados.");
                 tbpTipoPlanilla.getSelectionModel().select(tbpTipoPlanillas);
@@ -461,22 +464,22 @@ public class TiposPlanillaController extends Controller implements Initializable
     //--------------------------------------------------------------------------
     //             SECCIÓN CORRESPONDIENTE AL LABORATORIO #1
     //--------------------------------------------------------------------------
-       
     @FXML
     private void selectionChangeTabMov(Event event) {
         if (tbpMovimientoPlanillas.isSelected()) {
-            if (this.tipoPlanillaDto.getId() == null) {
+            // Agrega la validación de null
+            if (this.tipoPlanillaDto == null || this.tipoPlanillaDto.getId() == null) {
                 new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Movimiento", getStage(),
                         "Debe cargar el tipo de planilla al que desea agregar movimientos.");
                 tbpTipoPlanilla.getSelectionModel().select(tbpTipoPlanillas);
             }
         }
     }
- 
+
     @FXML
     private void onActionBtnAgregarMovimiento(ActionEvent event) {
         if (this.tipoPlanillaDto.getId() == null) {
-            new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Tipo de Movimiento", getStage(), 
+            new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Tipo de Movimiento", getStage(),
                     "Es necesario cargar una planilla para agregarle movimientos.");
             return;
         }
@@ -484,14 +487,14 @@ public class TiposPlanillaController extends Controller implements Initializable
         if (seleccion != null) {
             this.tipoMovimientoPlanillaDto.setTipoMovimientos(seleccion);
             if (this.tipoMovimientoPlanillaDto.getTipoMovimientos() == null
-                || this.tipoMovimientoPlanillaDto.getTipoMovimientos().getId() == null) {
-                new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Tipo de Movimiento", getStage(), 
-                    "Debe seleccionar el tipo de movimiento.");
+                    || this.tipoMovimientoPlanillaDto.getTipoMovimientos().getId() == null) {
+                new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Tipo de Movimiento", getStage(),
+                        "Debe seleccionar el tipo de movimiento.");
                 return;
             }
         }
         if (txfMonto.getText() == null || txfMonto.getText().isBlank()) {
-            new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Tipo de Movimiento", getStage(), 
+            new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Tipo de Movimiento", getStage(),
                     "Debe indicar el monto del movimiento.");
             return;
         }
@@ -507,7 +510,7 @@ public class TiposPlanillaController extends Controller implements Initializable
         } else {
             this.tipoMovimientoPlanillaDto.setModificado(true);
             tbvPlanillas.refresh();
-            new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Tipo de Movimiento", getStage(), 
+            new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Tipo de Movimiento", getStage(),
                     "El movimiento ya está en la lista, se actualizará al guardar.");
         }
     }
@@ -528,7 +531,7 @@ public class TiposPlanillaController extends Controller implements Initializable
                 }
                 if (newVal != null) {
                     txfMonto.textProperty().bindBidirectional(newVal.getMontoProperty());
-                    BindingUtils.unbindToggleGroupToProperty(tggTipoMonto, oldVal.getTipoMontoProperty());
+                    BindingUtils.bindToggleGroupToProperty(tggTipoMonto, newVal.getTipoMontoProperty());
                 }
             });
         } catch (Exception ex) {
@@ -536,7 +539,7 @@ public class TiposPlanillaController extends Controller implements Initializable
                     "Ocurrió un error al realizar el bindeo.");
         }
     }
-  
+
     private void limpiarMovimiento() {
         tbvPlanillas.getSelectionModel().select(null);
         this.tipoMovimientoPlanillaDto = new TipoMovimientoPlanillaDto();

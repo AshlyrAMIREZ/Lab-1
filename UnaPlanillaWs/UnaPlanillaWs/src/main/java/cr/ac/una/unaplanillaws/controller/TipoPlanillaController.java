@@ -9,6 +9,7 @@ import cr.ac.una.unaplanillaws.service.TipoPlanillaService;
 import cr.ac.una.unaplanillaws.util.CodigoRespuesta;
 import cr.ac.una.unaplanillaws.util.Respuesta;
 import jakarta.ejb.EJB;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -65,7 +66,7 @@ public class TipoPlanillaController {
     @Path("/guardar")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response guardarTipoPlanilla(TipoPlanillaDto planilla) {
+    public Response guardarTipoPlanilla(@Valid TipoPlanillaDto planilla) {
         try {
             Respuesta respuesta = service.guardarTipoPlanilla(planilla);
             if (!respuesta.getEstado()) {
