@@ -83,7 +83,13 @@ public class MantenimentoMovimientosViewController extends Controller implements
     @FXML
     private MFXTextField txtMonto;
     @FXML
+    private MFXRadioButton rdbTodos;
+    @FXML
     private ToggleGroup tggDeducciones;
+    @FXML
+    private MFXRadioButton rdbGravables;
+    @FXML
+    private MFXRadioButton rdbImpRenta;
     @FXML
     private MFXButton btnNuevo;
     @FXML
@@ -275,9 +281,9 @@ public class MantenimentoMovimientosViewController extends Controller implements
         rdbPorcentual.setUserData("P");
         rdbSiImprenta.setUserData("S");
         rdbNoImprenta.setUserData("N");
-        rdbGravable.setUserData("G");
-        rdbRenta.setUserData("R");
         rdbTodos.setUserData("T");
+        rdbGravables.setUserData("G");
+        rdbImpRenta.setUserData("R");
         txtId.delegateSetTextFormatter(Formato.getInstance().integerFormat());
         txtMonto.delegateSetTextFormatter(Formato.getInstance().integerFormat());
         txtDescripcion.delegateSetTextFormatter(Formato.getInstance().letrasFormat(40));

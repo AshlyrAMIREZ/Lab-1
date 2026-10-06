@@ -93,9 +93,9 @@
                                        </toggleGroup>
                                     </MFXRadioButton>
                                     <HBox alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="138.0" HBox.hgrow="ALWAYS" />
-                                    <MFXRadioButton fx:id="rdbGravable" text="Gravables" toggleGroup="$tggDeducciones" />
+                                    <MFXRadioButton fx:id="rdbGravables" text="Gravables" toggleGroup="$tggDeducciones" />
                                     <HBox alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="142.0" />
-                                    <MFXRadioButton fx:id="rdbRenta" text="Renta" toggleGroup="$tggDeducciones" />
+                                    <MFXRadioButton fx:id="rdbImpRenta" text="Renta" toggleGroup="$tggDeducciones" />
                                  </children>
                               </HBox>
                            </children>
