@@ -18,8 +18,8 @@ public class TipoMovimientosDto {
     private StringProperty id;
     private StringProperty tipo;
     private StringProperty descripcion;
-    private ObjectProperty<Boolean> gravable;
-    private ObjectProperty<Boolean> impRenta;
+    private ObjectProperty<String> gravable;
+    private ObjectProperty<String> impRenta;
     private ObjectProperty<String> tipoMonto;
     private StringProperty monto;
     private ObjectProperty<String> tipoAplDedPorc;
@@ -67,20 +67,20 @@ public class TipoMovimientosDto {
         this.descripcion.set(descripcion);
     }
 
-    public Boolean getGravable() {
+    public String getGravable() {
         return gravable.get();
     }
 
-    public void setGravable(Boolean gravable) {
-        this.gravable.set(gravable != null ? gravable : false);
+    public void setGravable(String gravable) {
+        this.gravable.set(gravable);
     }
 
-    public Boolean getImpRenta() {
+    public String getImpRenta() {
         return impRenta.get();
     }
 
-    public void setImpRenta(Boolean impRenta) {
-        this.impRenta.set(impRenta != null ? impRenta : false);
+    public void setImpRenta(String impRenta) {
+        this.impRenta.set(impRenta);
     }
 
     public String getTipoMonto() {

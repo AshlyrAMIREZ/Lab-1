@@ -21,10 +21,10 @@ public class TipoMovimientosDto {
     @NotBlank(message = "La descripcion del movimiento no puede estar vacia")
     @Size(min = 1, max = 40, message = "La descripcion tiene que tener minimo un valor y maximo 40")
     private String descripcion;
-    @NotNull(message = "el gravable no puede ser nulo")
-    private Boolean gravable;
-    @NotNull(message = "el impuesto de renta no puede ser nulo")
-    private Boolean impRenta;
+    @NotBlank(message = "el gravable no puede ser nulo")
+    private String gravable;
+    @NotBlank(message = "el impuesto de renta no puede ser nulo")
+    private String impRenta;
     @NotBlank(message = "El tipo de monto no puede estar blanco")
     @Size(min = 1, max = 1, message = "El tipo de monto solo puede ser de un valor")
     private String tipoMonto;
@@ -52,8 +52,8 @@ public class TipoMovimientosDto {
         this.id = tiposMovimientos.getId();
         this.tipo = tiposMovimientos.getTipo();
         this.descripcion = tiposMovimientos.getDescripcion();
-        this.gravable = tiposMovimientos.getGravable() != null && tiposMovimientos.getGravable().equals("S");
-        this.impRenta = tiposMovimientos.getImpRenta() != null && tiposMovimientos.getImpRenta().equals("S");
+        this.gravable = tiposMovimientos.getGravable();
+        this.impRenta = tiposMovimientos.getImpRenta();
         this.tipoMonto = tiposMovimientos.getTipoMonto();
         this.monto = tiposMovimientos.getMonto();
         this.tipoAplDedPorc = tiposMovimientos.getTipoAplDedPorc();
@@ -85,19 +85,19 @@ public class TipoMovimientosDto {
         this.descripcion = descripcion;
     }
 
-    public Boolean getGravable() {
+    public String getGravable() {
         return gravable;
     }
 
-    public void setGravable(Boolean gravable) {
+    public void setGravable(String gravable) {
         this.gravable = gravable;
     }
 
-    public Boolean getImpRenta() {
+    public String getImpRenta() {
         return impRenta;
     }
 
-    public void setImpRenta(Boolean impRenta) {
+    public void setImpRenta(String impRenta) {
         this.impRenta = impRenta;
     }
 

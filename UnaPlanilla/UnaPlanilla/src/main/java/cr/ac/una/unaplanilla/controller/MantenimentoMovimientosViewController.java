@@ -207,8 +207,8 @@ public class MantenimentoMovimientosViewController extends Controller implements
     private void cargarValoresDefecto() {
         tipoMovimientosDto = new TipoMovimientosDto();
         tipoMovimientosDto.setEstado(Boolean.TRUE);
-        tipoMovimientosDto.setGravable(Boolean.TRUE);
-        tipoMovimientosDto.setImpRenta(Boolean.TRUE);
+        tipoMovimientosDto.setGravable("S");
+        tipoMovimientosDto.setImpRenta("S");
         tipoMovimientosDto.setTipoMonto("A");
         tipoMovimientosDto.setTipoAplDedPorc("T");
         tipoMovimientosProperty.setValue(tipoMovimientosDto);
