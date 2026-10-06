@@ -1,5 +1,6 @@
 package cr.ac.una.unaplanilla.model;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -133,38 +134,47 @@ public class TipoMovimientosDto {
         this.modificado = modificado;
     }
 
+    @JsonbTransient
     public StringProperty getIdProperty() {
         return id;
     }
 
+    @JsonbTransient
     public StringProperty getTipoProperty() {
         return tipo;
     }
 
+    @JsonbTransient
     public StringProperty getDescripcionProperty() {
         return descripcion;
     }
 
+    @JsonbTransient
     public ObjectProperty getGravableProperty() {
         return gravable;
     }
 
+    @JsonbTransient
     public ObjectProperty getImpRentaProperty() {
         return impRenta;
     }
 
+    @JsonbTransient
     public ObjectProperty getTipoMontoProperty() {
         return tipoMonto;
     }
 
+    @JsonbTransient
     public StringProperty getMontoProperty() {
         return monto;
     }
 
+    @JsonbTransient
     public ObjectProperty getTipoAplDedPorcProperty() {
         return tipoAplDedPorc;
     }
 
+    @JsonbTransient
     public BooleanProperty getEstadoProperty() {
         return estado;
     }
