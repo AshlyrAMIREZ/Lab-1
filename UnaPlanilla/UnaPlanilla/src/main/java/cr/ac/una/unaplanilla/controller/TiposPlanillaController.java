@@ -29,7 +29,6 @@ import java.util.logging.Logger;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -361,7 +360,6 @@ public class TiposPlanillaController extends Controller implements Initializable
     @FXML
     private void selectionChangeTabEmp(Event event) {
         if (tbpInclusionEmpleados.isSelected()) {
-            // Agrega la validación de null
             if (this.tipoPlanillaDto == null || this.tipoPlanillaDto.getId() == null) {
                 new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Empleado", getStage(),
                         "Debe cargar el tipo de planilla al que desea agregar empleados.");
@@ -467,7 +465,6 @@ public class TiposPlanillaController extends Controller implements Initializable
     @FXML
     private void selectionChangeTabMov(Event event) {
         if (tbpMovimientoPlanillas.isSelected()) {
-            // Agrega la validación de null
             if (this.tipoPlanillaDto == null || this.tipoPlanillaDto.getId() == null) {
                 new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Movimiento", getStage(),
                         "Debe cargar el tipo de planilla al que desea agregar movimientos.");
@@ -554,22 +551,6 @@ public class TiposPlanillaController extends Controller implements Initializable
         tbvPlanillas.getItems().clear();
         tbvPlanillas.setItems(this.tipoPlanillaDto.getTipoMovimientosPlanilla());
         tbvPlanillas.refresh();
-    }
-
-    private void cargarTiposMovimientos() {
-        try {
-            TipoMovimientosService service = new TipoMovimientosService();
-            Respuesta respuesta = service.getTiposMovimientos();
-            if (respuesta.getEstado()) {
-                List<TipoMovimientosDto> movimientos = (List<TipoMovimientosDto>) respuesta.getResultado("TiposMovimientos");
-                cbxDeducciones.setItems(FXCollections.observableArrayList(movimientos));
-            } else {
-                new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Movimientos", getStage(), respuesta.getMensaje());
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(TiposPlanillaController.class.getName()).log(Level.SEVERE, "Error cargando los tipos de movimiento.", ex);
-            new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Movimientos", getStage(), "Ocurrió un error cargando los tipos de movimiento.");
-        }
     }
 
     private void cargarTipoMovimiento(Long id) {
