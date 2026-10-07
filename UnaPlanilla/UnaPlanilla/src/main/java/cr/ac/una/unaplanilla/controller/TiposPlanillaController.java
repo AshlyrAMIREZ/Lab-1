@@ -371,6 +371,28 @@ public class TiposPlanillaController extends Controller implements Initializable
 
     @FXML
     private void onKeyPressedTxtCodigo(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER && !txtCodigo.getText().isBlank()) {
+            try {
+                TipoPlanillaService service = new TipoPlanillaService();
+                Respuesta respuesta = service.getTiposPlanilla(txtCodigo.getText().toUpperCase(), "%%", "%%", "%%", "%%");
+
+                if (respuesta.getEstado()) {
+                    List<TipoPlanillaDto> planillas = (List<TipoPlanillaDto>) respuesta.getResultado("Planillas");
+
+                    if (planillas != null && !planillas.isEmpty()) {
+                        cargarTipoPlanilla(planillas.get(0).getId());
+                    } else {
+                        new Mensaje().showModal(Alert.AlertType.WARNING, "Cargar Tipo Planilla", getStage(),
+                                "No se encontró ningún tipo de planilla con el código: " + txtCodigo.getText());
+                    }
+                } else {
+                    new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Tipo Planilla", getStage(), respuesta.getMensaje());
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(TiposPlanillaController.class.getName()).log(Level.SEVERE, "Error buscando planilla por código.", ex);
+                new Mensaje().showModal(Alert.AlertType.ERROR, "Cargar Tipo Planilla", getStage(), "Ocurrió un error buscando el tipo de planilla por código.");
+            }
+        }
     }
 
     @FXML
@@ -388,6 +410,7 @@ public class TiposPlanillaController extends Controller implements Initializable
             this.empleadoDto.setModificado(true);
             tbvEmpleados.getItems().add(this.empleadoDto);
             tbvEmpleados.refresh();
+            limpiarEmpleado();
         }
     }
 
