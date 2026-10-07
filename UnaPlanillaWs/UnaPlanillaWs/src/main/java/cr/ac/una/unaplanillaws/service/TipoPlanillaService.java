@@ -56,7 +56,7 @@ public class TipoPlanillaService {
                     tipoPlanillaDto.getTipoMovimientosPlanilla().add(new TipoMovimientoPlanillaDto(tmp));
                 }
             }
-            */
+             */
             return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "TipoPlanilla", tipoPlanillaDto);
 
         } catch (NoResultException ex) {
@@ -161,6 +161,17 @@ public class TipoPlanillaService {
             } else {
                 tipoPlanilla = new TipoPlanilla(tipoPlanillaDto);
                 em.persist(tipoPlanilla);
+
+                if (tipoPlanillaDto.getEmpleados() != null && !tipoPlanillaDto.getEmpleados().isEmpty()) {
+                    for (EmpleadoDto empDto : tipoPlanillaDto.getEmpleados()) {
+                        if (empDto.getModificado() != null && empDto.getModificado()) {
+                            Empleado empleado = em.find(Empleado.class, empDto.getId());
+                            empleado.getTiposPlanilla().add(tipoPlanilla);
+                            tipoPlanilla.getEmpleados().add(empleado);
+                        }
+                    }
+                }
+
                 if (tipoPlanillaDto.getTipoMovimientosPlanilla() != null && !tipoPlanillaDto.getTipoMovimientosPlanilla().isEmpty()) {
                     for (TipoMovimientoPlanillaDto tmpDto : tipoPlanillaDto.getTipoMovimientosPlanilla()) {
                         TipomovimientoPlanilla tmp = new TipomovimientoPlanilla(tmpDto);
@@ -174,7 +185,11 @@ public class TipoPlanillaService {
                 }
             }
             em.flush();
-            return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "TipoPlanilla", new TipoPlanillaDto(tipoPlanilla));
+            TipoPlanillaDto guardadoDto = new TipoPlanillaDto(tipoPlanilla);
+            for (Empleado emp : tipoPlanilla.getEmpleados()) {
+                guardadoDto.getEmpleados().add(new EmpleadoDto(emp));
+            }
+            return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "TipoPlanilla", guardadoDto);
         } catch (Exception ex) {
             LOG.log(Level.SEVERE, "Ocurrio un error al guardar el tipo de planilla.", ex);
             return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al guardar el tipo de planilla.", "guardarTipoPlanilla " + ex.getMessage());

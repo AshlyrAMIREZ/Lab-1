@@ -482,6 +482,8 @@ public class TiposPlanillaController extends Controller implements Initializable
                 } else {
                     this.tipoPlanillaDto = (TipoPlanillaDto) respuesta.getResultado("TipoPlanilla");
                     this.tipoPlanillaProperty.setValue(this.tipoPlanillaDto);
+                    cargarEmpleados();
+                    cargarPlanilla();
                     new Mensaje().showModal(Alert.AlertType.INFORMATION, "Guardar Tipo Planilla", getStage(), "Tipo Planilla actualizada correctamente.");
                 }
             }
