@@ -106,7 +106,7 @@ public class TiposPlanillaController extends Controller implements Initializable
     @FXML
     private MFXTextField txfMonto;
     @FXML
-    private MFXComboBox<TipoMovimientosDto> cbxDeducciones;
+    private MFXComboBox<String> cbxDeducciones;
     @FXML
     private MFXButton btnAgregarMovimiento;
     @FXML
@@ -127,6 +127,8 @@ public class TiposPlanillaController extends Controller implements Initializable
     private ObjectProperty<TipoMovimientoPlanillaDto> movimientoProperty = new SimpleObjectProperty<>();
     private boolean sincronizandoMovimiento;
     private List<Node> requeridos = new ArrayList<>();
+    @FXML
+    private TableColumn<TipoMovimientoPlanillaDto, Boolean> tbcEliminarMovimientos;
 
     /**
      * Initializes the controller class.
@@ -161,8 +163,41 @@ public class TiposPlanillaController extends Controller implements Initializable
                 this.empleadoProperty.setValue(this.empleadoDto);
             }
         });
+
+        // Configurar columnas de Movimientos Planilla
+        tbcIdPlanilla.setCellValueFactory(cd -> cd.getValue().getTipoMovimientos().getIdProperty());
+        tbcTipoMovimiento.setCellValueFactory(cd -> {
+            String tipo = cd.getValue().getTipoMonto();
+            if ("A".equals(tipo)) {
+                return new javafx.beans.property.SimpleStringProperty("Absoluto");
+            }
+            if ("P".equals(tipo)) {
+                return new javafx.beans.property.SimpleStringProperty("Porcentual");
+            }
+            return new javafx.beans.property.SimpleStringProperty("");
+        });
+        tbcMonto.setCellValueFactory(cd -> cd.getValue().getMontoProperty());
+        tbcDeduccion.setCellValueFactory(cd -> {
+            String letra = cd.getValue().getTipoAplDedPorc();
+            if ("T".equals(letra)) {
+                return new javafx.beans.property.SimpleStringProperty("Todos");
+            }
+            if ("G".equals(letra)) {
+                return new javafx.beans.property.SimpleStringProperty("Gravable");
+            }
+            if ("R".equals(letra)) {
+                return new javafx.beans.property.SimpleStringProperty("Renta");
+            }
+            return new javafx.beans.property.SimpleStringProperty("");
+        });
+        // Configuramos que la celda no esté vacía y le ponemos nuestra nueva clase de botón
+        tbcEliminarMovimientos.setCellValueFactory((cd) -> new javafx.beans.property.SimpleBooleanProperty(cd.getValue() != null));
+        tbcEliminarMovimientos.setCellFactory((cd) -> new ButtonCellMovimiento());
+
         cargarValoresDefecto();
         indicarRequeridos();
+        cbxDeducciones.getItems().clear();
+        cbxDeducciones.getItems().addAll("Todos", "Gravable", "Renta");
     }
 
     @Override
@@ -183,7 +218,7 @@ public class TiposPlanillaController extends Controller implements Initializable
                 if (newVal != null) {
                     if (newVal.getIdProperty().get() != null
                             && !newVal.getIdProperty().get().isBlank()) {
-                        txtId.textProperty().bindBidirectional(newVal.getIdProperty());
+                        txtId.textProperty().bind(newVal.getIdProperty());
                     }
                     txtCodigo.textProperty().bindBidirectional(newVal.getCodigoProperty());
                     txtDescripcion.textProperty().bindBidirectional(newVal.getDescripcionProperty());
@@ -458,6 +493,33 @@ public class TiposPlanillaController extends Controller implements Initializable
         }
     }
 
+    private class ButtonCellMovimiento extends TableCell<TipoMovimientoPlanillaDto, Boolean> {
+
+        final Button cellButton = new Button();
+
+        ButtonCellMovimiento() {
+            cellButton.setPrefWidth(500);
+            cellButton.getStyleClass().add("jfx-btnimg-tbveliminar");
+
+            cellButton.setOnAction((ActionEvent t) -> {
+                TipoMovimientoPlanillaDto mov = (TipoMovimientoPlanillaDto) ButtonCellMovimiento.this.getTableView().getItems().get(ButtonCellMovimiento.this.getIndex());
+                tipoPlanillaDto.getTipoMovimientosPlanillaEliminados().add(mov);
+                tbvPlanillas.getItems().remove(mov);
+                tbvPlanillas.refresh();
+            });
+        }
+
+        @Override
+        protected void updateItem(Boolean t, boolean empty) {
+            super.updateItem(t, empty);
+            if (!empty) {
+                setGraphic(cellButton);
+            } else {
+                setGraphic(null);
+            }
+        }
+    }
+
     //--------------------------------------------------------------------------
     //             SECCIÓN CORRESPONDIENTE AL LABORATORIO #1
     //--------------------------------------------------------------------------
@@ -479,16 +541,25 @@ public class TiposPlanillaController extends Controller implements Initializable
                     "Es necesario cargar una planilla para agregarle movimientos.");
             return;
         }
-        TipoMovimientosDto seleccion = cbxDeducciones.getSelectionModel().getSelectedItem();
-        if (seleccion != null) {
-            this.tipoMovimientoPlanillaDto.setTipoMovimientos(seleccion);
-            if (this.tipoMovimientoPlanillaDto.getTipoMovimientos() == null
-                    || this.tipoMovimientoPlanillaDto.getTipoMovimientos().getId() == null) {
-                new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Tipo de Movimiento", getStage(),
-                        "Debe seleccionar el tipo de movimiento.");
-                return;
+        // Verificar que sí se haya cargado un movimiento al presionar Enter en el ID
+        if (this.tipoMovimientoPlanillaDto.getTipoMovimientos() == null
+                || this.tipoMovimientoPlanillaDto.getTipoMovimientos().getId() == null) {
+            new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Tipo de Movimiento", getStage(),
+                    "Debe cargar el tipo de movimiento primero (presione Enter en el ID del movimiento).");
+            return;
+        }
+        // Sacar el texto del ComboBox y guardarlo como letra
+        String deduccionSeleccionada = cbxDeducciones.getSelectionModel().getSelectedItem();
+        if (deduccionSeleccionada != null) {
+            if (deduccionSeleccionada.equals("Todos")) {
+                this.tipoMovimientoPlanillaDto.setTipoAplDedPorc("T");
+            } else if (deduccionSeleccionada.equals("Gravable")) {
+                this.tipoMovimientoPlanillaDto.setTipoAplDedPorc("G");
+            } else if (deduccionSeleccionada.equals("Renta")) {
+                this.tipoMovimientoPlanillaDto.setTipoAplDedPorc("R");
             }
         }
+
         if (txfMonto.getText() == null || txfMonto.getText().isBlank()) {
             new Mensaje().showModal(Alert.AlertType.WARNING, "Agregar Tipo de Movimiento", getStage(),
                     "Debe indicar el monto del movimiento.");
@@ -558,9 +629,34 @@ public class TiposPlanillaController extends Controller implements Initializable
             Respuesta respuesta = tipoMovimientosService.getTipoMovimiento(id);
             if (respuesta.getEstado()) {
                 TipoMovimientosDto tipoMovimientosDto = (TipoMovimientosDto) respuesta.getResultado("TipoMovimiento");
-                cbxDeducciones.getSelectionModel().selectItem(tipoMovimientosDto);
                 this.tipoMovimientoPlanillaDto.setTipoMovimientos(tipoMovimientosDto);
                 txfIdPlanilla.setText(String.valueOf(tipoMovimientosDto.getId()));
+                // Copiar los valores por defecto del movimiento a la pantalla
+                if (tipoMovimientosDto.getMonto() != null) {
+                    this.tipoMovimientoPlanillaDto.setMonto(tipoMovimientosDto.getMonto());
+                }
+                /*
+                if (tipoMovimientosDto.getTipoMonto() != null) {
+                    this.tipoMovimientoPlanillaDto.setTipoMonto(tipoMovimientosDto.getTipoMonto());
+                }
+                 */
+                if (tipoMovimientosDto.getTipoMonto() != null) {
+                    if (tipoMovimientosDto.getTipoMonto().equals("A")) {
+                        rdbAbsoluto.setSelected(true);
+                    } else if (tipoMovimientosDto.getTipoMonto().equals("P")) {
+                        rdbPorcentual.setSelected(true);
+                    }
+                }
+                if (tipoMovimientosDto.getTipoAplDedPorc() != null) {
+                    String letra = tipoMovimientosDto.getTipoAplDedPorc();
+                    if (letra.equals("T")) {
+                        cbxDeducciones.getSelectionModel().selectItem("Todos");
+                    } else if (letra.equals("G")) {
+                        cbxDeducciones.getSelectionModel().selectItem("Gravable");
+                    } else if (letra.equals("R")) {
+                        cbxDeducciones.getSelectionModel().selectItem("Renta");
+                    }
+                }
                 if (tipoMovimientosDto.getTipoAplDedPorc() != null && !tipoMovimientosDto.getTipoAplDedPorc().isBlank()) {
                     this.tipoMovimientoPlanillaDto.setTipoAplDedPorc(tipoMovimientosDto.getTipoAplDedPorc());
                 }
