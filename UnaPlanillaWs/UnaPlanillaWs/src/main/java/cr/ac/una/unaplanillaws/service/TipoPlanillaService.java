@@ -50,11 +50,13 @@ public class TipoPlanillaService {
             for (Empleado emp : tipoPlanilla.getEmpleados()) {
                 tipoPlanillaDto.getEmpleados().add(new EmpleadoDto(emp));
             }
+            /*
             if (tipoPlanilla.getPlamTipmovplanillaList() != null) {
                 for (TipomovimientoPlanilla tmp : tipoPlanilla.getPlamTipmovplanillaList()) {
                     tipoPlanillaDto.getTipoMovimientosPlanilla().add(new TipoMovimientoPlanillaDto(tmp));
                 }
             }
+            */
             return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "TipoPlanilla", tipoPlanillaDto);
 
         } catch (NoResultException ex) {
