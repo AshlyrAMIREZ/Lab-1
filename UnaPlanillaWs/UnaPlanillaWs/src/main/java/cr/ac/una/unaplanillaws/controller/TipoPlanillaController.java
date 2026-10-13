@@ -8,6 +8,9 @@ import cr.ac.una.unaplanillaws.model.TipoPlanillaDto;
 import cr.ac.una.unaplanillaws.service.TipoPlanillaService;
 import cr.ac.una.unaplanillaws.util.CodigoRespuesta;
 import cr.ac.una.unaplanillaws.util.Respuesta;
+import cr.ac.una.unaplanillaws.util.Secure;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.ejb.EJB;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -26,7 +29,10 @@ import java.util.logging.Logger;
  *
  * @author Oscar
  */
+@Secure
 @Path("Planillas")
+@Tag(name = "TipoPlanillas", description = "Operaciones sobre tipos de planillas")
+@SecurityRequirement(name = "jwt-auth")
 public class TipoPlanillaController {
 
     @EJB

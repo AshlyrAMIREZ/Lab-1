@@ -70,6 +70,8 @@ public class EmpleadoDto {
     private Boolean modificado;
 
     private LocalDateTime fecha;
+    
+    private String token;
 
     public EmpleadoDto() {
         this.modificado = false;
@@ -162,6 +164,15 @@ public class EmpleadoDto {
     public void setAdministrador(Boolean administrador) {
         this.administrador = administrador;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+    
 
     public String getUsuario() {
         return usuario;

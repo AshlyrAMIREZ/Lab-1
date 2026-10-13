@@ -31,7 +31,11 @@ public class EmpleadoDto {
     private BooleanProperty activo;
     private Long version;
     private Boolean modificado;
-    // TODO
+    private String token;
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public EmpleadoDto() {
         this.id = new SimpleStringProperty("");
@@ -270,6 +274,10 @@ public class EmpleadoDto {
     @Override
     public String toString() {
         return "EmpleadoDto{" + "id=" + id + ", nombre=" + nombre + ", primerApellido=" + primerApellido + ", cedula=" + cedula + '}';
+    }
+
+    public Object getToken() {
+        return this.token;
     }
 
 }

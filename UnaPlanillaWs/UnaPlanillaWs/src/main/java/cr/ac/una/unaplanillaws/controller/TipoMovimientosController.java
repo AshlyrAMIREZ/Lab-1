@@ -8,6 +8,9 @@ import cr.ac.una.unaplanillaws.model.TipoMovimientosDto;
 import cr.ac.una.unaplanillaws.service.TipoMovimientosService;
 import cr.ac.una.unaplanillaws.util.CodigoRespuesta;
 import cr.ac.una.unaplanillaws.util.Respuesta;
+import cr.ac.una.unaplanillaws.util.Secure;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.ejb.EJB;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -25,7 +28,10 @@ import java.util.logging.Logger;
  *
  * @author Oscar
  */
+@Secure
 @Path("TipoMovimientos")
+@Tag(name = "TipoMovimientos", description = "Operaciones sobre tipos de movimientos")
+@SecurityRequirement(name = "jwt-auth")
 public class TipoMovimientosController {
 
     @EJB
