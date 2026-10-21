@@ -25,8 +25,6 @@ import jakarta.ws.rs.core.Response;
 import java.io.StringReader;
 import java.util.Base64;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 
 /*import javax.json.Json;
@@ -137,9 +135,27 @@ public class Request {
     }
 
     public Boolean isError() {
-        // TODO
-        return getStatus() != Response.Status.OK.getStatusCode();
-    }
+        if (getStatus() == Response.Status.UNAUTHORIZED.getStatusCode()) {
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(4000);
+                        Platform.runLater(() -> {
+                            FlowController.getInstance().goLogInWindowModal(true);
+                        });
+                    } catch (InterruptedException ex) {
+                        System.getLogger(Request.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                    }
+                }
+            }.start();
+        }
+            return getStatus() != Response.Status.OK.getStatusCode();
+        }
+
+    
+
+    
 
     public String getError() {
         if (response.getStatus() != Response.Status.OK.getStatusCode()) {

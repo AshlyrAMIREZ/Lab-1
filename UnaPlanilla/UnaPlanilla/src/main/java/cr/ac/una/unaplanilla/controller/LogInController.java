@@ -70,8 +70,14 @@ public class LogInController extends Controller implements Initializable {
                 if (respuesta.getEstado()) {
                     EmpleadoDto empleadoDto = (EmpleadoDto) respuesta.getResultado("Usuario");
                     AppContext.getInstance().set("Token", empleadoDto.getToken());
+                    String usuario = (EmpleadoDto) AppContext.getInstance().get("Usuario") != null 
+                            ? ((EmpleadoDto) AppContext.getInstance().get("Usuario")).getUsuario() : "";
+                   
+                    if(getStage().getOwner() == null || txfUsuario.getText().equalsIgnoreCase(usuario)){
+                        FlowController.getInstance().goMain();
+                        
+                    }
                     AppContext.getInstance().set("Usuario", empleadoDto);
-                    FlowController.getInstance().goMain();
                     getStage().close();
                 } else {
                     new Mensaje().show(Alert.AlertType.ERROR, "Validación Usuario", respuesta.getMensaje());
