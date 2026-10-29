@@ -1,0 +1,52 @@
+$kind: http-request
+url: "{{baseUrl}}/Client/client"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+body:
+  type: text
+  content: |-
+    {
+      "id": 0,
+      "civilStatus": "S",
+      "occupation": "Ingeniero",
+      "address": "San Pedro, Montes de Oca",
+      "observations": "Cliente preferencial",
+      "active": "T",
+      "lawFirmId": "{{firmId}}",
+      "person": {
+        "id": 0,
+        "name": "Ana",
+        "firstLastname": "Rojas",
+        "secondLastname": "Vargas",
+        "identificationType": "Physical Id",
+        "legalId": "201230{{uniqueSuffix}}",
+        "phoneNumber": "8765-4321",
+        "email": "ana.rojas@correo.com"
+      }
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("5.1 Crear Cliente - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+
+      try {
+          var jsonData = pm.response.json();
+          var extractedId = jsonData.id || (jsonData.item && jsonData.item.id);
+          if (extractedId) {
+              pm.collectionVariables.set("clientId", extractedId);
+              console.log("Variable clientId guardada:", extractedId);
+          }
+          if (jsonData.person && jsonData.person.id) {
+              pm.collectionVariables.set("clientPersonId", jsonData.person.id);
+              console.log("Variable clientPersonId guardada:", jsonData.person.id);
+          }
+      } catch (e) {
+          console.error("Error al parsear respuesta JSON", e);
+      }
+    language: text/javascript
+order: 1000

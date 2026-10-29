@@ -1,0 +1,37 @@
+$kind: http-request
+url: "{{baseUrl}}/Client/client"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+body:
+  type: text
+  content: |-
+    {
+      "id": "{{clientId}}",
+      "civilStatus": "M",
+      "occupation": "Consultor TI",
+      "address": "Curridabat, San Jose",
+      "observations": "Datos actualizados",
+      "active": "T",
+      "lawFirmId": "{{firmId}}",
+      "person": {
+        "id": "{{clientPersonId}}",
+        "name": "Ana",
+        "firstLastname": "Rojas",
+        "secondLastname": "Vargas",
+        "identificationType": "Physical Id",
+        "legalId": "201230{{uniqueSuffix}}",
+        "phoneNumber": "8765-9999",
+        "email": "ana.rojas@correo.com"
+      }
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("5.5 Actualizar Cliente - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 5000

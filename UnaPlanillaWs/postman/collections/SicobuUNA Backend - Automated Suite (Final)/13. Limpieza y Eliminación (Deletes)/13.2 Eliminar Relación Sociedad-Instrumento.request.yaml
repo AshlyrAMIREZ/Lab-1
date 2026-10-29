@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/SocietyOfInstrument/societyOfInstrument/delete/{{soiId}}"
+method: DELETE
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("13.2 Eliminar Relación Sociedad-Instrumento - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 2000

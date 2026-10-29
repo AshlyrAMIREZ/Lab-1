@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/Lawyer/lawyer/delete/{{lawyerId}}"
+method: DELETE
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("13.14 Eliminar Abogado - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 14000

@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/Client/clients/{{firmId}}"
+method: GET
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("5.3 Consultar Clientes por Bufete - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 3000

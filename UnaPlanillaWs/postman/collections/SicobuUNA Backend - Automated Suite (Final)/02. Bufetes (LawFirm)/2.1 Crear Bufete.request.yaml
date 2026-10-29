@@ -1,0 +1,43 @@
+$kind: http-request
+url: "{{baseUrl}}/LawFirm/Firm"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+body:
+  type: text
+  content: |-
+    {
+      "id": 0,
+      "name": "Bufete Central UNA",
+      "phoneNumber": "2222-3333",
+      "email": "contacto@bufeteuna.com",
+      "address": "Heredia, Costa Rica",
+      "logo": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "active": true
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("2.1 Crear Bufete - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+
+      try {
+          var jsonData = pm.response.json();
+          var extractedId = jsonData.id || (jsonData.item && jsonData.item.id);
+          if (extractedId) {
+              pm.collectionVariables.set("firmId", extractedId);
+              console.log("Variable firmId guardada:", extractedId);
+          }
+      } catch (e) {
+          console.error("Error al parsear respuesta JSON", e);
+      }
+    language: text/javascript
+order: 1000

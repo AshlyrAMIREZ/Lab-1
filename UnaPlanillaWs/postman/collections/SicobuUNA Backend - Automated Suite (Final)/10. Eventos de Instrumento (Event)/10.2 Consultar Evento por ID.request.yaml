@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/Event/event/{{eventId}}"
+method: GET
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("10.2 Consultar Evento por ID - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 2000

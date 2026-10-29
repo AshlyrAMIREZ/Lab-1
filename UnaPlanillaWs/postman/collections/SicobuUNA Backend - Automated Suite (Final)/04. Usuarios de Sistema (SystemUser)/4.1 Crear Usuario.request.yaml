@@ -1,0 +1,45 @@
+$kind: http-request
+url: "{{baseUrl}}/SystemUser/systemUser"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+body:
+  type: text
+  content: |-
+    {
+      "id": 0,
+      "systemName": "cmora{{uniqueSuffix}}",
+      "password": "Password123!",
+      "admin": "T",
+      "systemLanguage": "Spanish",
+      "active": "T",
+      "passwordChanged": "T",
+      "lawyerId": "{{lawyerId}}",
+      "picture": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("4.1 Crear Usuario - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+
+      try {
+          var jsonData = pm.response.json();
+          var extractedId = jsonData.id || (jsonData.item && jsonData.item.id);
+          if (extractedId) {
+              pm.collectionVariables.set("userId", extractedId);
+              console.log("Variable userId guardada:", extractedId);
+          }
+      } catch (e) {
+          console.error("Error al parsear respuesta JSON", e);
+      }
+    language: text/javascript
+order: 1000

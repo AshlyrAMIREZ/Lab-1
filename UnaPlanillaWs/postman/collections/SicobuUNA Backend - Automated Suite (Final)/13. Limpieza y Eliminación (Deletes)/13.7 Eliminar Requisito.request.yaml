@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/InstrumentRequirement/requirement/delete/{{requirementId}}"
+method: DELETE
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("13.7 Eliminar Requisito - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 7000

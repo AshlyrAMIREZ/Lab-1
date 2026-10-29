@@ -1,0 +1,40 @@
+$kind: http-request
+url: "{{baseUrl}}/Payment/payment"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+body:
+  type: text
+  content: |-
+    {
+      "id": 0,
+      "description": "Primer abono de honorarios",
+      "date": "2026-10-26",
+      "billNumber": 1001,
+      "amount": 25000,
+      "active": "T",
+      "clientId": "{{clientId}}",
+      "societyId": 0,
+      "instrumentId": "{{instrumentId}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("9.1 Registrar Pago - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+
+      try {
+          var jsonData = pm.response.json();
+          var extractedId = jsonData.id || (jsonData.item && jsonData.item.id);
+          if (extractedId) {
+              pm.collectionVariables.set("paymentId", extractedId);
+              console.log("Variable paymentId guardada:", extractedId);
+          }
+      } catch (e) {
+          console.error("Error al parsear respuesta JSON", e);
+      }
+    language: text/javascript
+order: 1000

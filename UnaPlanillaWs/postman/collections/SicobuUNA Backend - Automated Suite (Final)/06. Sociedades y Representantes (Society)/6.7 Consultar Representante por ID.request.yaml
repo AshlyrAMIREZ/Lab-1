@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/Representative/representative/{{representativeId}}"
+method: GET
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("6.7 Consultar Representante por ID - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 7000

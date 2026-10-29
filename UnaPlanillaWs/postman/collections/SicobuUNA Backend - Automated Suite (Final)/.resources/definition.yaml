@@ -1,0 +1,23 @@
+$kind: collection
+description: Automated end-to-end test suite for SicobuUNA Jakarta EE 11 / Payara REST endpoints. Dynamic variables, schema constraints, and cleanup included.
+variables:
+  baseUrl: http://localhost:8080/WsSicobuUNA/ws
+  firmId: "0"
+  lawyerId: "0"
+  lawyerPersonId: "0"
+  userId: "0"
+  clientId: "0"
+  clientPersonId: "0"
+  societyId: "0"
+  representativeId: "0"
+  representativePersonId: "0"
+  instrumentId: "0"
+  stateId: "0"
+  requirementId: "0"
+  paymentId: "0"
+  expenseId: "0"
+  eventId: "0"
+  authId: "0"
+  coiId: "0"
+  soiId: "0"
+  uniqueSuffix: "1001"

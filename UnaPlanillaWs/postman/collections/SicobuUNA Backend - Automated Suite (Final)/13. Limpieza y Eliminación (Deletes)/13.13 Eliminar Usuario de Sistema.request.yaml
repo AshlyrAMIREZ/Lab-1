@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/SystemUser/systemUser/delete/{{userId}}"
+method: DELETE
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("13.13 Eliminar Usuario de Sistema - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 13000

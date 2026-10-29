@@ -1,9 +1,17 @@
-# Use this workspace to collaborate
 workspace:
   id: 0b40070f-50fb-4c2c-81c9-0c1d0fa32f26
 
-# All resources in the `postman/` folder are automatically registered in Local View.
-# Point to additional files outside the `postman/` folder to register them individually. Example:
-#localResources:
-#  collections:
-#    - ../tests/E2E Test Collection/
+localResources:
+  specs:
+    - ../postman/specs/WsSicobuUNA API/index.json
+    - ../postman/specs/WsSicobuUNA API-1/index.json
+resourceNameMappings:
+  specs:
+    - ../postman/specs/WsSicobuUNA API/index.json: WsSicobuUNA API
+    - ../postman/specs/WsSicobuUNA API-1/index.json: WsSicobuUNA API
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../postman/collections/SicobuUNA Backend - Automated Suite (Final): e2125602-1cce-4343-a966-5c149526c0a6

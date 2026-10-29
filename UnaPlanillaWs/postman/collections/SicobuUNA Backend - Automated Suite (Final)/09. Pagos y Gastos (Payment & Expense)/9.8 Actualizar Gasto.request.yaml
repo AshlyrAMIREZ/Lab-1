@@ -1,0 +1,28 @@
+$kind: http-request
+url: "{{baseUrl}}/Expense/expense"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+body:
+  type: text
+  content: |-
+    {
+      "id": "{{expenseId}}",
+      "description": "Timbres y certificaciones",
+      "date": "2026-10-26",
+      "amount": 6500,
+      "billNumber": 5544,
+      "taxable": "F",
+      "lawFirmId": "{{firmId}}",
+      "instrumentId": 0
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("9.8 Actualizar Gasto - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 8000

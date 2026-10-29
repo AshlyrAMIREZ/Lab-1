@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/ClientOfInstrument/clientOfInstrument/{{coiId}}"
+method: GET
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("12.2 Consultar Cliente del Instrumento por ID - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 2000

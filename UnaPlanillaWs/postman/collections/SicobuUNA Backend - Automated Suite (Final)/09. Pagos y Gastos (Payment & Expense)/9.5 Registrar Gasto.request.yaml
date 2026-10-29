@@ -1,0 +1,39 @@
+$kind: http-request
+url: "{{baseUrl}}/Expense/expense"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+body:
+  type: text
+  content: |-
+    {
+      "id": 0,
+      "description": "Timbres de registro",
+      "date": "2026-10-26",
+      "amount": 5000,
+      "billNumber": 5544,
+      "taxable": "F",
+      "lawFirmId": "{{firmId}}",
+      "instrumentId": 0
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("9.5 Registrar Gasto - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+
+      try {
+          var jsonData = pm.response.json();
+          var extractedId = jsonData.id || (jsonData.item && jsonData.item.id);
+          if (extractedId) {
+              pm.collectionVariables.set("expenseId", extractedId);
+              console.log("Variable expenseId guardada:", extractedId);
+          }
+      } catch (e) {
+          console.error("Error al parsear respuesta JSON", e);
+      }
+    language: text/javascript
+order: 5000

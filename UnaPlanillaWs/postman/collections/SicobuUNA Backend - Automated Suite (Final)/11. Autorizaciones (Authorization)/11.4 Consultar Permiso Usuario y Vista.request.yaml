@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/Authorization/user/{{userId}}/InstrumentsView"
+method: GET
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("11.4 Consultar Permiso Usuario y Vista - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 4000

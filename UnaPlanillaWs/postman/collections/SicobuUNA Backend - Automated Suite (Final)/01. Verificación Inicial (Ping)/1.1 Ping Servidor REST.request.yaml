@@ -1,0 +1,21 @@
+$kind: http-request
+url: "{{baseUrl}}/jakartaee11"
+method: GET
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+scripts:
+  - type: beforeRequest
+    code: |-
+      var randomSuffix = Math.floor(1000 + Math.random() * 9000).toString();
+      pm.collectionVariables.set('uniqueSuffix', randomSuffix);
+      console.log('uniqueSuffix establecido para la ejecución:', randomSuffix);
+    language: text/javascript
+  - type: afterResponse
+    code: |-
+      pm.test("1.1 Ping Servidor REST - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 1000

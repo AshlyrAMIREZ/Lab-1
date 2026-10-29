@@ -1,0 +1,35 @@
+$kind: http-request
+url: "{{baseUrl}}/Lawyer/lawyer"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+body:
+  type: text
+  content: |-
+    {
+      "id": "{{lawyerId}}",
+      "address": "San Jose, Paseo Colon",
+      "isPartner": "T",
+      "active": "T",
+      "lawFirmId": "{{firmId}}",
+      "person": {
+        "id": "{{lawyerPersonId}}",
+        "name": "Carlos",
+        "firstLastname": "Mora",
+        "secondLastname": "Solano",
+        "identificationType": "Physical Id",
+        "legalId": "109870{{uniqueSuffix}}",
+        "phoneNumber": "8888-9999",
+        "email": "carlos.mora@bufeteuna.com"
+      }
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("3.5 Actualizar Abogado - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 5000

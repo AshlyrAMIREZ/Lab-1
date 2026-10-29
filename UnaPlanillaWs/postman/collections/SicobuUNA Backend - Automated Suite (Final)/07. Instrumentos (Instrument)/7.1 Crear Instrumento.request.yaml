@@ -1,0 +1,49 @@
+$kind: http-request
+url: "{{baseUrl}}/Instrument/instrument"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+body:
+  type: text
+  content: |-
+    {
+      "id": 0,
+      "pendingAmount": 50000,
+      "name": "Escritura de Compraventa",
+      "description": "Compraventa de lote en Heredia",
+      "type": "Escritura Publica",
+      "registered": "F",
+      "date": "2026-10-25",
+      "ticketNumber": 12345,
+      "volume": 10,
+      "folio": 20,
+      "seat": 30,
+      "pendingPayment": "T",
+      "observations": "Pendiente firma de comprador",
+      "taxable": "T",
+      "taxNumber": 7788,
+      "realValue": 500000,
+      "billedValue": "550000",
+      "lawyerId": "{{lawyerId}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("7.1 Crear Instrumento - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+
+      try {
+          var jsonData = pm.response.json();
+          var extractedId = jsonData.id || (jsonData.item && jsonData.item.id);
+          if (extractedId) {
+              pm.collectionVariables.set("instrumentId", extractedId);
+              console.log("Variable instrumentId guardada:", extractedId);
+          }
+      } catch (e) {
+          console.error("Error al parsear respuesta JSON", e);
+      }
+    language: text/javascript
+order: 1000

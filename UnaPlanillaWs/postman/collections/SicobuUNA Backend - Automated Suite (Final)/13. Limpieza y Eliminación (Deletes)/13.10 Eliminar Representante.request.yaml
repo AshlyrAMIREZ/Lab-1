@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/Representative/representative/delete/{{representativeId}}"
+method: DELETE
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("13.10 Eliminar Representante - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 10000

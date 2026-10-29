@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/Society/societyByCorporateId/3-101-99{{uniqueSuffix}}/{{firmId}}"
+method: GET
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("6.4 Consultar Sociedad por Cédula Jurídica - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 4000

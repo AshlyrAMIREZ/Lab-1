@@ -1,0 +1,40 @@
+$kind: http-request
+url: "{{baseUrl}}/InstrumentRequirement/requirement"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+body:
+  type: text
+  content: |-
+    {
+      "id": 0,
+      "name": "Plano Catastrado",
+      "description": "Plano debidamente visado",
+      "state": "P",
+      "date": "2026-10-26",
+      "indexOfOrder": 1,
+      "necesary": "T",
+      "active": "T",
+      "instrumentId": "{{instrumentId}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("8.5 Crear Requisito de Instrumento - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+
+      try {
+          var jsonData = pm.response.json();
+          var extractedId = jsonData.id || (jsonData.item && jsonData.item.id);
+          if (extractedId) {
+              pm.collectionVariables.set("requirementId", extractedId);
+              console.log("Variable requirementId guardada:", extractedId);
+          }
+      } catch (e) {
+          console.error("Error al parsear respuesta JSON", e);
+      }
+    language: text/javascript
+order: 5000

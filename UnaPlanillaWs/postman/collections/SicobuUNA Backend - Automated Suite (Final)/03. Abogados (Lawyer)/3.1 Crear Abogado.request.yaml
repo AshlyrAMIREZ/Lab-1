@@ -1,0 +1,50 @@
+$kind: http-request
+url: "{{baseUrl}}/Lawyer/lawyer"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+body:
+  type: text
+  content: |-
+    {
+      "id": 0,
+      "address": "San Jose, Costa Rica",
+      "isPartner": "T",
+      "active": "T",
+      "lawFirmId": "{{firmId}}",
+      "person": {
+        "id": 0,
+        "name": "Carlos",
+        "firstLastname": "Mora",
+        "secondLastname": "Solano",
+        "identificationType": "Physical Id",
+        "legalId": "109870{{uniqueSuffix}}",
+        "phoneNumber": "8888-7777",
+        "email": "carlos.mora@bufeteuna.com"
+      }
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("3.1 Crear Abogado - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+
+      try {
+          var jsonData = pm.response.json();
+          var extractedId = jsonData.id || (jsonData.item && jsonData.item.id);
+          if (extractedId) {
+              pm.collectionVariables.set("lawyerId", extractedId);
+              console.log("Variable lawyerId guardada:", extractedId);
+          }
+          if (jsonData.person && jsonData.person.id) {
+              pm.collectionVariables.set("lawyerPersonId", jsonData.person.id);
+              console.log("Variable lawyerPersonId guardada:", jsonData.person.id);
+          }
+      } catch (e) {
+          console.error("Error al parsear respuesta JSON", e);
+      }
+    language: text/javascript
+order: 1000

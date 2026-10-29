@@ -1,0 +1,40 @@
+$kind: http-request
+url: "{{baseUrl}}/Authorization/authorization"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+body:
+  type: text
+  content: |-
+    {
+      "id": 0,
+      "viewName": "InstrumentsView",
+      "canEnter": "T",
+      "canConsult": "T",
+      "canCreate": "T",
+      "canEdit": "T",
+      "canDelete": "F",
+      "active": "T",
+      "userId": "{{userId}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("11.1 Crear Autorización - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+
+      try {
+          var jsonData = pm.response.json();
+          var extractedId = jsonData.id || (jsonData.item && jsonData.item.id);
+          if (extractedId) {
+              pm.collectionVariables.set("authId", extractedId);
+              console.log("Variable authId guardada:", extractedId);
+          }
+      } catch (e) {
+          console.error("Error al parsear respuesta JSON", e);
+      }
+    language: text/javascript
+order: 1000

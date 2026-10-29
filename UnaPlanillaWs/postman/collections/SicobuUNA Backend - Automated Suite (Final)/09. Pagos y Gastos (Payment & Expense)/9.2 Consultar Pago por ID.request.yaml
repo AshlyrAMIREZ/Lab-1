@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/Payment/payment/{{paymentId}}"
+method: GET
+headers:
+  Content-Type: application/json
+  Accept: application/json
+  Accept-Language: es
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("9.2 Consultar Pago por ID - Estado HTTP exitoso (200)", function () {
+          pm.response.to.have.status(200);
+      });
+    language: text/javascript
+order: 2000
